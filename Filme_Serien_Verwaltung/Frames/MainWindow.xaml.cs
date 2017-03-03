@@ -28,6 +28,28 @@ namespace GUIApp.Frames
             {
                 _dao = new DataAccessObject(Convert.ToInt16(_handlerSettings.DatabaseFormat), _handlerSettings.DBPath + "\\" + _handlerSettings.DBFile);
             }
+
+            if(_handlerSettings.View != 0)
+            {
+                switch (_handlerSettings.View)
+                {
+                    case 1:
+                        {
+                            btnDetailView.IsChecked = true;
+                            break;
+                        }
+                    case 2:
+                        {
+                            btnListView.IsChecked = true;
+                            break;
+                        }
+                    case 3:
+                        {
+                            btnRasterView.IsChecked = true;
+                            break;
+                        }
+                }
+            }
         }
 
         private void btnEinstellungen_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -88,6 +110,29 @@ namespace GUIApp.Frames
             btnListView.IsChecked = false;
             btnRasterView.IsChecked = false;
             btnDetailView.IsChecked = true;
+        }
+
+        private void miAddClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+
+        }
+
+        private void frmMain_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _handlerSettings.View = 0;
+
+            if(btnDetailView.IsChecked == true)
+            {
+                _handlerSettings.View = 1;
+            } else if (btnListView.IsChecked == true)
+            {
+                _handlerSettings.View = 2;
+            } else if (btnRasterView.IsChecked == true)
+            {
+                _handlerSettings.View = 3;
+            }
+
+            _handlerSettings.SaveView();
         }
     }
 }

@@ -39,9 +39,18 @@ namespace Interfaces {
         private static string resDataBaseFile = "DBFile";
         private static string resSectionAPIKey = "API-Key";
         private static string resAPIKey = "ApiKey";
+        private static string resView = "View";
 
         private static global::System.Resources.ResourceManager resourceMan;
         private static global::System.Globalization.CultureInfo resourceCulture;
+
+        public static string View
+        {
+            get
+            {
+                return resView;
+            }
+        }
 
         public static string ApiKey
         {

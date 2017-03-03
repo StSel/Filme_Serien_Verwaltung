@@ -17,7 +17,7 @@
         WindowTransitionsEnabled="False"
         WindowTitleBrush="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" SizeChanged="frmMain_SizeChanged"
         Icon="/Images/tmdbLogo.png"
-        ShowIconOnTitleBar="True">
+        ShowIconOnTitleBar="True" Closing="frmMain_Closing">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -38,6 +38,34 @@
                     <MenuItem Name="miBeenden">
                         <MenuItem.Header>
                             <TextBlock Text="Beenden" Margin="-25,0,0,0"/>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+            <Menu Name="MenuView" Margin="0" FontSize="12">
+                <MenuItem Name="miView" Header="Anzeige">
+                    <MenuItem Name="miDetail" Click="btnDetailView_Click">
+                        <MenuItem.Header>
+                            <TextBlock Text="Detail-Ansicht" Margin="-25,0,0,0"/>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Name="miListe" Click="btnListView_Click">
+                        <MenuItem.Header>
+                            <TextBlock Text="Listen-Ansicht" Margin="-25,0,0,0"/>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Name="miGrid" Click="btnRasterView_Click">
+                        <MenuItem.Header>
+                            <TextBlock Text="Raster-Ansicht" Margin="-25,0,0,0"/>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+            <Menu Name="MenuAdd" Margin="0" FontSize="12">
+                <MenuItem Name="mbtnMedia" Header="Media">
+                    <MenuItem Name="mbtnAdd" Click="miAddClick">
+                        <MenuItem.Header>
+                            <TextBlock Text="Film oder Serie hinzufügen..." Margin="-25,0,0,0"/>
                         </MenuItem.Header>
                     </MenuItem>
                 </MenuItem>
@@ -83,6 +111,11 @@
                           HorizontalAlignment="Right"
                           VerticalAlignment="Bottom"
                           ToolTip="Detailansicht" Click="btnDetailView_Click"/>
+            <Label Name="lblView" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                   Margin="0,0,75,1" Width="60" Height="20" Background="#FF343434"
+                   Content="ANSICHT" FontSize="12" Padding="7,1,0,0"
+                   Foreground="#FF858585">
+            </Label>
         </Grid>
         <TextBox x:Name="tbSearchBox" 
                  HorizontalAlignment="Right" 

@@ -22,6 +22,7 @@ namespace GUIApp.SaveHandler
         private string cDatabaseFile = Interfaces.GlobalResources.DatabaseFile;
         private string cSectionAPIKey = Interfaces.GlobalResources.SectionAPIKey;
         private string cApiKey = Interfaces.GlobalResources.ApiKey;
+        private string cView = Interfaces.GlobalResources.View;
 
         #endregion
 
@@ -33,10 +34,17 @@ namespace GUIApp.SaveHandler
         private string dbpath;
         private string dbfile;
         private string apikey;
+        private int view;
 
         #endregion
 
         #region Properties
+        public int View
+        {
+            get { return view; }
+            set { view = value; }
+        }
+
         public string APIKey
         {
             get { return apikey; }
@@ -89,6 +97,8 @@ namespace GUIApp.SaveHandler
             database = "0";
             dbpath = Interfaces.GlobalResources.StandardDBPath;
             dbfile = "Database.xml";
+            apikey = "0";
+            view = 0;
         }
 
         public void saveSettings()
@@ -104,6 +114,16 @@ namespace GUIApp.SaveHandler
             MyFile.Write(cApiKey, apikey, cSectionAPIKey);
         }
 
+        public void SaveView()
+        {
+            if (!Directory.Exists(Interfaces.GlobalResources.StandardDBPath))
+                Directory.CreateDirectory(Interfaces.GlobalResources.StandardDBPath);
+
+            IniFile MyFile = new IniFile(Interfaces.GlobalResources.StandardDBPath + cIniFile);
+
+            MyFile.Write(cView, Convert.ToString(view), cSectionAppearence);
+        }
+
         public void loadStoredSettings()
         {
             if (!Directory.Exists(Interfaces.GlobalResources.StandardDBPath))
@@ -115,6 +135,7 @@ namespace GUIApp.SaveHandler
             dbpath = MyFile.Read(cDatabasePath, cSectionDatabase);
             dbfile = MyFile.Read(cDatabaseFile, cSectionDatabase);
             apikey = MyFile.Read(cApiKey, cSectionAPIKey);
+            view = Convert.ToInt16(MyFile.Read(cView, cSectionAppearence));
         }
 
         public void loadSettings(string filename)
