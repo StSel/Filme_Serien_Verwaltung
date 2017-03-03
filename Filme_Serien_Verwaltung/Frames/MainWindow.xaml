@@ -1,0 +1,119 @@
+﻿<Controls:MetroWindow x:Class="GUIApp.Frames.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        Title="" 
+        Height="355" 
+        Width="600" 
+        MinHeight="355"
+        MinWidth="600"
+        Name="frmMain" 
+        WindowStartupLocation="CenterScreen"
+        BorderThickness="0"
+        GlowBrush="Black"
+        ResizeMode="CanResizeWithGrip"
+        WindowTransitionsEnabled="False"
+        WindowTitleBrush="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" SizeChanged="frmMain_SizeChanged">
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseDark.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Content="Einstellungen" Name="btnEinstellungen" Click="btnEinstellungen_Click" />
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Controls:MetroWindow.LeftWindowCommands>
+        <Controls:WindowCommands>
+            <Menu Name="MainMenu" Margin="0" IsMainMenu="True" FontSize="12">
+                <MenuItem Name="miMainControl" Header="Control">
+                    <MenuItem Name="miEinstell" Click="miEinstellClick">
+                        <MenuItem.Header>
+                            <TextBlock Text="Einstellungen" Margin="-25,0,0,0"/>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Name="miBeenden">
+                        <MenuItem.Header>
+                            <TextBlock Text="Beenden" Margin="-25,0,0,0"/>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.LeftWindowCommands>
+    <Grid Name="gridMain" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Name="pnlToolbar"
+              Grid.Column="1" 
+              HorizontalAlignment="Right"
+              Height="26" 
+              Margin="0,0,5,5" 
+              VerticalAlignment="Bottom" 
+              Width="355"
+              Background="#FF343434">
+            <ToggleButton x:Name="btnRasterView" Height="20" Style="{StaticResource ButtonRasterView}"
+                    Background="#FF343434"
+                    BorderThickness="0"
+                    Padding="0" Margin="0,0,4,2" Width="18"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    ToolTip="Rasteransicht" Click="btnRasterView_Click"/>
+            <ToggleButton x:Name="btnListView" Height="22" Style="{StaticResource ButtonListView}"
+                          Background="#FF343434"
+                          BorderThickness="0"
+                          Padding="0" Margin="0,0,25,1" Width="22"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Bottom"
+                          ToolTip="Listenansicht" Click="btnListView_Click"/>
+            <ToggleButton x:Name="btnDetailView" Height="22" Width="20"
+                          Style="{StaticResource ButtonDetailView}"
+                          Background="#FF343434" BorderThickness="0" Padding="0"
+                          Margin="0,0,50,1"
+                          HorizontalAlignment="Right"
+                          VerticalAlignment="Bottom"
+                          ToolTip="Detailansicht" Click="btnDetailView_Click"/>
+        </Grid>
+        <TextBox x:Name="tbSearchBox" 
+                 HorizontalAlignment="Right" 
+                 Height="22" 
+                 Margin="0,0,75,5" 
+                 TextWrapping="Wrap" 
+                 Text="Suchen..." 
+                 VerticalAlignment="Bottom" Width="150"
+                 Grid.Column="0"
+                 BorderThickness="0">
+            <TextBox.Background>
+                <LinearGradientBrush>
+                    <GradientStop Color="#FF343434"/>
+                </LinearGradientBrush>
+            </TextBox.Background>
+        </TextBox>
+        <Button x:Name="btnKategorie"
+                Grid.Column="0"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Height="26"
+                Width="70"
+                Margin="0,0,5,5"
+                Background="#FF343434"
+                BorderThickness="0"
+                Content="Kategorie"
+                Style="{StaticResource BtnShadowTextOnHover}">
+        </Button>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="245" Margin="10,0,0,0" Grid.Row="1" 
+                 VerticalAlignment="Bottom" Width="220"/>
+    </Grid>
+</Controls:MetroWindow>
