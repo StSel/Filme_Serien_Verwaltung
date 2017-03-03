@@ -20,6 +20,8 @@ namespace GUIApp.SaveHandler
         private string cSectionDatabase = Interfaces.GlobalResources.SectionDatabase;
         private string cDatabasePath = Interfaces.GlobalResources.DatabasePath;
         private string cDatabaseFile = Interfaces.GlobalResources.DatabaseFile;
+        private string cSectionAPIKey = Interfaces.GlobalResources.SectionAPIKey;
+        private string cApiKey = Interfaces.GlobalResources.ApiKey;
 
         #endregion
 
@@ -30,10 +32,17 @@ namespace GUIApp.SaveHandler
         private string database;
         private string dbpath;
         private string dbfile;
+        private string apikey;
 
         #endregion
 
         #region Properties
+        public string APIKey
+        {
+            get { return apikey; }
+            set { apikey = value; }
+        }
+
         public string DBFile
         {
             get { return dbfile; }
@@ -92,6 +101,7 @@ namespace GUIApp.SaveHandler
             MyFile.Write(cDatabase, database, cSectionDatabase);
             MyFile.Write(cDatabasePath, dbpath, cSectionDatabase);
             MyFile.Write(cDatabaseFile, dbfile, cSectionDatabase);
+            MyFile.Write(cApiKey, apikey, cSectionAPIKey);
         }
 
         public void loadStoredSettings()
@@ -104,6 +114,7 @@ namespace GUIApp.SaveHandler
             database = MyFile.Read(cDatabase, cSectionDatabase);
             dbpath = MyFile.Read(cDatabasePath, cSectionDatabase);
             dbfile = MyFile.Read(cDatabaseFile, cSectionDatabase);
+            apikey = MyFile.Read(cApiKey, cSectionAPIKey);
         }
 
         public void loadSettings(string filename)

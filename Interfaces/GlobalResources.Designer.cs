@@ -37,9 +37,27 @@ namespace Interfaces {
         private static string resStandardDBPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Local Settings\Verwaltung\";
         private static string resDatabasePath = "DBPath";
         private static string resDataBaseFile = "DBFile";
+        private static string resSectionAPIKey = "API-Key";
+        private static string resAPIKey = "ApiKey";
 
         private static global::System.Resources.ResourceManager resourceMan;
         private static global::System.Globalization.CultureInfo resourceCulture;
+
+        public static string ApiKey
+        {
+            get
+            {
+                return resAPIKey;
+            }
+        }
+
+        public static string SectionAPIKey
+        {
+            get
+            {
+                return resSectionAPIKey;
+            }
+        }
 
         public static string DatabaseFile
         {

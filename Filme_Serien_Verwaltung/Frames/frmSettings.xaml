@@ -9,7 +9,7 @@
         Name="frmSetting"
         WindowStartupLocation="CenterOwner" Topmost="True" ShowInTaskbar="False" 
         BorderThickness="1" ResizeMode="NoResize" 
-        BorderBrush="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" 
+        BorderBrush="#4C017CAA" 
         Closing="frmSetting_Closing"
         WindowTitleBrush="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
     <Controls:MetroWindow.Resources>
@@ -46,6 +46,18 @@
                     </Button>
                     <ComboBox x:Name="CbxDB" HorizontalAlignment="Left" Margin="142,16,0,0" VerticalAlignment="Top"
                               Width="234" SelectionChanged="CbxDB_SelectionChanged"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tbItemtmdbAPI" Header="TMDB-API" FontSize="13.333" VerticalAlignment="Top"
+                     BorderThickness="1" BorderBrush="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
+                     Controls:ControlsHelper.HeaderFontSize="15">
+                <Grid x:Name="pnlAPIKey" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" 
+                      Margin="0" Height="160">
+                    <Label x:Name="lblAPI" Content="TDM-API-Key" FontSize="11" HorizontalAlignment="Left" 
+                           Margin="10,0,0,109" VerticalAlignment="Bottom" Width="110"/>
+                    <TextBox x:Name="edttmdAPI" HorizontalAlignment="Left" 
+                             Margin="125,0,0,109" VerticalAlignment="Bottom"
+                              Width="350"/>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -10,7 +10,8 @@
         MinWidth="600"
         Name="frmMain" 
         WindowStartupLocation="CenterScreen"
-        BorderThickness="0"
+        BorderThickness="1"
+        BorderBrush="#4C017CAA"
         GlowBrush="Black"
         ResizeMode="CanResizeWithGrip"
         WindowTransitionsEnabled="False"
@@ -25,11 +26,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
-    <Controls:MetroWindow.RightWindowCommands>
-        <Controls:WindowCommands>
-            <Button Content="Einstellungen" Name="btnEinstellungen" Click="btnEinstellungen_Click" />
-        </Controls:WindowCommands>
-    </Controls:MetroWindow.RightWindowCommands>
     <Controls:MetroWindow.LeftWindowCommands>
         <Controls:WindowCommands>
             <Menu Name="MainMenu" Margin="0" IsMainMenu="True" FontSize="12">
