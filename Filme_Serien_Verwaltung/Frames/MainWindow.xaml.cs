@@ -134,5 +134,56 @@ namespace GUIApp.Frames
 
             _handlerSettings.SaveView();
         }
+
+        private void tbSearchBox_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if(tbSearchBox.Text == "Suchen...")
+            {
+                tbSearchBox.Clear();
+            }
+        }
+
+        private void tbSearchBox_LostFocus(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if(tbSearchBox.Text == "")
+            {
+                tbSearchBox.Text = "Suchen...";
+            }
+
+            if (tbSearchBox.Text == "" || tbSearchBox.Text == "Suchen...")
+            {
+                btnSearchClear.Visibility = System.Windows.Visibility.Hidden;
+            }
+            else
+            {
+                btnSearchClear.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void tbSearchBox_PreviewKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (tbSearchBox.Text == "" && tbSearchBox.Text != "Suchen...")
+            {
+                btnSearchClear.Visibility = System.Windows.Visibility.Hidden;
+            }
+            else
+            {
+                btnSearchClear.Visibility = System.Windows.Visibility.Visible;
+            }
+        }
+
+        private void frmMain_Initialized(object sender, EventArgs e)
+        {
+            btnSearchClear.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private void btnSearchClear_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if(btnSearchClear.Visibility == System.Windows.Visibility.Visible)
+            {
+                tbSearchBox.Clear();
+                tbSearchBox.Focus();
+            }
+        }
     }
 }

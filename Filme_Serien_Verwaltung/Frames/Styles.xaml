@@ -2,93 +2,119 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-GuiApp.Frames">
     <SolidColorBrush x:Key="ButtonMouseOverForeground" Color="Tomato" />
-        <Style x:Key="BtnShadowTextOnHover" TargetType="Button">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Grid Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center"
+    <Style x:Key="BtnShadowTextOnHover" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center"
                                                   VerticalAlignment="Center"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="Blue"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="ButtonRasterView" TargetType="ToggleButton">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ToggleButton">
-                        <Grid Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center"
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="#FFB1B1EC"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="BtnSearchClear" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                        <Image Name="SearchIcon" Source="/Images/close-circle.png" RenderSize="10, 10"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="BtnWithOutShadow" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center"
+                           VerticalAlignment="Center"/>
+                        <Image Name="SearchIcon" Source="/Images/magnify.png"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ButtonRasterView" TargetType="ToggleButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center"
                                                   VerticalAlignment="Center"/>
-                            <Image Name="IsPressed" Source="/Images/RasterHighlight.png" Visibility="Hidden"/>
-                            <Image Name="Normal" Source="/Images/RasterNormal.png" Visibility="Visible"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
-                                <Setter TargetName="IsPressed" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
-                                <Setter TargetName="IsPressed" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="ButtonListView" TargetType="ToggleButton">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ToggleButton">
-                        <Grid Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center"
+                        <Image Name="IsPressed" Source="/Images/RasterHighlight.png" Visibility="Hidden"/>
+                        <Image Name="Normal" Source="/Images/RasterNormal.png" Visibility="Visible"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="IsPressed" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="IsPressed" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ButtonListView" TargetType="ToggleButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center"
                                                   VerticalAlignment="Center"/>
-                            <Image Name="IsPressed" Source="/Images/ListViewHighlight.png" Visibility="Hidden"/>
-                            <Image Name="Normal" Source="/Images/ListViewNormal.png" Visibility="Visible"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
-                                <Setter TargetName="IsPressed" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
-                                <Setter TargetName="IsPressed" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style x:Key="ButtonDetailView" TargetType="ToggleButton">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ToggleButton">
-                        <Grid Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center"
+                        <Image Name="IsPressed" Source="/Images/ListViewHighlight.png" Visibility="Hidden"/>
+                        <Image Name="Normal" Source="/Images/ListViewNormal.png" Visibility="Visible"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="IsPressed" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="IsPressed" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ButtonDetailView" TargetType="ToggleButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center"
                                                   VerticalAlignment="Center"/>
-                            <Image Name="IsPressed" Source="/Images/DetailViewHighlight.png" Visibility="Hidden"/>
-                            <Image Name="Normal" Source="/Images/DetailViewNormal.png" Visibility="Visible"/>
-                        </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsChecked" Value="True">
-                                <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
-                                <Setter TargetName="IsPressed" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
-                                <Setter TargetName="IsPressed" Property="Visibility" Value="Visible"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </ResourceDictionary>
+                        <Image Name="IsPressed" Source="/Images/DetailViewHighlight.png" Visibility="Hidden"/>
+                        <Image Name="Normal" Source="/Images/DetailViewNormal.png" Visibility="Visible"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="IsPressed" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Normal" Property="Visibility" Value="Hidden"/>
+                            <Setter TargetName="IsPressed" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

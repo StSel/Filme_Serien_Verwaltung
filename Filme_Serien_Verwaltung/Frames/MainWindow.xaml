@@ -17,7 +17,7 @@
         WindowTransitionsEnabled="False"
         WindowTitleBrush="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" SizeChanged="frmMain_SizeChanged"
         Icon="/Images/tmdbLogo.png"
-        ShowIconOnTitleBar="True" Closing="frmMain_Closing">
+        ShowIconOnTitleBar="True" Closing="frmMain_Closing" Initialized="frmMain_Initialized">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -117,33 +117,61 @@
                    Foreground="#FF858585">
             </Label>
         </Grid>
-        <TextBox x:Name="tbSearchBox" 
+        <DockPanel Height="30" Width="225" HorizontalAlignment="Right"
+                   VerticalAlignment="Bottom" Margin="0,0,2,2">
+            <Button BorderThickness="0" DockPanel.Dock="Left"
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                    Style="{StaticResource BtnWithOutShadow}"
+                    Height="26" Width="22" Background="#FF343434"
+                    Margin="0,0,0,2">
+            </Button>
+            <TextBox x:Name="tbSearchBox" 
+                 DockPanel.Dock="Right"
                  HorizontalAlignment="Right" 
                  Height="22" 
-                 Margin="0,0,75,5" 
+                 Margin="0,0,94,2" 
                  TextWrapping="Wrap" 
                  Text="Suchen..." 
-                 VerticalAlignment="Bottom" Width="150"
+                 VerticalAlignment="Bottom" Width="111"
                  Grid.Column="0"
-                 BorderThickness="0">
-            <TextBox.Background>
-                <LinearGradientBrush>
-                    <GradientStop Color="#FF343434"/>
-                </LinearGradientBrush>
-            </TextBox.Background>
-        </TextBox>
-        <Button x:Name="btnKategorie"
+                 BorderThickness="0" PreviewMouseLeftButtonUp="tbSearchBox_MouseLeftButtonUp" LostFocus="tbSearchBox_LostFocus" PreviewKeyUp="tbSearchBox_PreviewKeyUp">
+                <TextBox.Background>
+                    <LinearGradientBrush>
+                        <GradientStop Color="#FF343434"/>
+                    </LinearGradientBrush>
+                </TextBox.Background>
+                <TextBox.ContextMenu>
+                    <ContextMenu Name="tbSearchCM">
+                        <MenuItem Name="tbSearchCut" Header="Auschneiden"/>
+                        <MenuItem Name="tbSearchCopy" Header="Kopieren"/>
+                        <MenuItem Name="tbSearchPaste" Header="Einfügen"/>
+                    </ContextMenu>
+                </TextBox.ContextMenu>
+            </TextBox>
+            <Grid DockPanel.Dock="Right" Height="26" Width="22" HorizontalAlignment="Right" 
+                  VerticalAlignment="Bottom"
+                  Margin="0,0,-130,2" Background="#FF343434">
+                <Button x:Name="btnSearchClear" BorderThickness="0" DockPanel.Dock="Right"
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                    Style="{StaticResource BtnSearchClear}"
+                    Height="18" Width="18" Background="#FF343434"
+                    Margin="0,0,2,3" Click="btnSearchClear_Click">
+                </Button>
+            </Grid>
+            <Button x:Name="btnKategorie"
+                DockPanel.Dock="Right"
                 Grid.Column="0"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Height="26"
                 Width="70"
-                Margin="0,0,5,5"
+                Margin="0,0,-200,2"
                 Background="#FF343434"
                 BorderThickness="0"
                 Content="Kategorie"
                 Style="{StaticResource BtnShadowTextOnHover}">
-        </Button>
+            </Button>
+        </DockPanel>
         <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="245" Margin="10,0,0,0" Grid.Row="1" 
                  VerticalAlignment="Bottom" Width="220"/>
     </Grid>
