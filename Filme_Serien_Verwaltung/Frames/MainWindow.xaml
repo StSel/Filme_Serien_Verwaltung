@@ -14,7 +14,9 @@
         GlowBrush="Black"
         ResizeMode="CanResizeWithGrip"
         WindowTransitionsEnabled="False"
-        WindowTitleBrush="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" SizeChanged="frmMain_SizeChanged">
+        WindowTitleBrush="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" SizeChanged="frmMain_SizeChanged"
+        Icon="/Images/tmdbLogo.png"
+        ShowIconOnTitleBar="True">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
