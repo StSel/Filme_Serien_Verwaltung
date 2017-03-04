@@ -102,9 +102,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Frames\frmAdd.xaml.cs">
+      <DependentUpon>frmAdd.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SaveHandler\PersonalSettingHandler.cs" />
     <Compile Include="StyleHandler\StyleManager.cs" />
     <Compile Include="StyleHandler\ThemesAndAccents.cs" />
+    <Page Include="Frames\frmAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Frames\Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

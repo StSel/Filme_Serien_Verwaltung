@@ -2,7 +2,6 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         Title="" 
         Height="355" 
         Width="600" 
@@ -15,7 +14,8 @@
         GlowBrush="Black"
         ResizeMode="CanResizeWithGrip"
         WindowTransitionsEnabled="False"
-        WindowTitleBrush="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" SizeChanged="frmMain_SizeChanged"
+        WindowTitleBrush="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" 
+        SizeChanged="frmMain_SizeChanged"
         Icon="/Images/tmdbLogo.png"
         ShowIconOnTitleBar="True" Closing="frmMain_Closing" Initialized="frmMain_Initialized">
     <Controls:MetroWindow.Resources>

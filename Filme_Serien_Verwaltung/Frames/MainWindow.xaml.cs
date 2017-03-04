@@ -2,9 +2,6 @@
 using MahApps.Metro.Controls;
 using Data;
 using System;
-using System.Windows.Data;
-using System.Windows.Controls;
-using Handler;
 
 namespace GUIApp.Frames
 {
@@ -67,14 +64,6 @@ namespace GUIApp.Frames
             }
         }
 
-        private void ShowEinstell()
-        {
-            frmSettings frmEinstell = new frmSettings(_handlerSettings);
-            frmEinstell.Owner = this;
-            frmEinstell.UpdateMainWindow += new HandlerUpdateWindow(UpdateMainWindow);
-            frmEinstell.ShowDialog();
-        }
-
         private void Ctrl_ClickRight(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             e.Handled = true;
@@ -114,7 +103,7 @@ namespace GUIApp.Frames
 
         private void miAddClick(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            ShowFrmAdd();
         }
 
         private void frmMain_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -185,5 +174,22 @@ namespace GUIApp.Frames
                 tbSearchBox.Focus();
             }
         }
+
+        #region Show Windows
+        private void ShowEinstell()
+        {
+            frmSettings frmEinstell = new frmSettings(_handlerSettings);
+            frmEinstell.Owner = this;
+            frmEinstell.UpdateMainWindow += new HandlerUpdateWindow(UpdateMainWindow);
+            frmEinstell.ShowDialog();
+        }
+
+        private void ShowFrmAdd()
+        {
+            frmAdd lfrmAdd = new frmAdd(_handlerSettings.APIKey);
+            lfrmAdd.Owner = this;
+            lfrmAdd.ShowDialog();
+        }
+        #endregion
     }
 }

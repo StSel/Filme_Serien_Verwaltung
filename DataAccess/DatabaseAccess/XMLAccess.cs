@@ -2,7 +2,6 @@
 using Interfaces.FileHandler;
 using System;
 
-
 namespace DataAccess.DatabaseAccess
 {
     public class XMLAccess : IDataBaseAccess
