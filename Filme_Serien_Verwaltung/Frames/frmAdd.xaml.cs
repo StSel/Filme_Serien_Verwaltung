@@ -59,6 +59,7 @@ namespace GUIApp.Frames
             {
                 _MyList.Clear();
                 _APIAcc.FillList(_MyList, tbSearchBox.Text);
+                dgridNew.Columns[0].Visibility = Visibility.Visible;
                 dgridNew.ItemsSource = _MyList;
             }
         }
@@ -92,6 +93,11 @@ namespace GUIApp.Frames
         {
             var deltaWidth = (e.NewSize.Width - e.PreviousSize.Width);
            // dgridNew.Width += deltaWidth;
+        }
+
+        private void frmAdd1_Activated(object sender, EventArgs e)
+        {
+            dgridNew.Columns[0].Visibility = Visibility.Hidden;
         }
     }
 }

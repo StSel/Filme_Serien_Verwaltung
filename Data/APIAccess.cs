@@ -36,15 +36,38 @@ namespace Data
 
         public void FillList(ObservableCollection<MyObject> List, string Search)
         {
-            SearchContainer<SearchMovie> results = _client.SearchMovieAsync(Search).Result;
+            SearchContainer<SearchMovie> movResults = _client.SearchMovieAsync(Search).Result;
 
-            foreach(SearchMovie result in results.Results)
+            foreach(SearchMovie result in movResults.Results)
             {
-                List.Add(InitMyObj(result.Title, result.MediaType.ToString(), result.ReleaseDate));
+                string release = "##";
+
+                if (result.ReleaseDate != null)
+                {
+                    DateTime releasedate = Convert.ToDateTime(result.ReleaseDate);
+                    release = releasedate.ToShortDateString();
+                }
+
+                List.Add(InitMyObj(result.Title, result.MediaType.ToString(), release));
+            }
+
+            SearchContainer<SearchTv> seasonResults = _client.SearchTvShowAsync(Search).Result;
+
+            foreach(SearchTv result in seasonResults.Results)
+            {
+                string release = "##";
+
+                if(result.FirstAirDate != null)
+                {
+                    DateTime releasedate = Convert.ToDateTime(result.FirstAirDate);
+                    release = releasedate.ToShortDateString();
+                }
+
+                List.Add(InitMyObj(result.Name, result.MediaType.ToString(), release));
             }
         }
 
-        private MyObject InitMyObj(string title, string type, DateTime? release)
+        private MyObject InitMyObj(string title, string type, string release)
         {
             MyObject newObj = new MyObject();
             newObj.Title = title;

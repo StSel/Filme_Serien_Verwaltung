@@ -6,7 +6,7 @@ namespace Data
     {
         public string Title { get; set; }
         public string Type { get; set; }
-        public DateTime? Release { get; set; }
+        public string Release { get; set; }
         
     }
 }

@@ -8,7 +8,7 @@
         BorderBrush="#4C017CAA" 
         WindowTitleBrush="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Initialized="MetroWindow_Initialized"
         SizeChanged="frmAdd_SizeChanged"
-        MinHeight="300">
+        MinHeight="300" Activated="frmAdd1_Activated">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
