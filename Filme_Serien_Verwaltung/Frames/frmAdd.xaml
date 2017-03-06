@@ -72,7 +72,17 @@
                   VerticalAlignment="Stretch" Grid.ColumnSpan="2" Grid.Row="1"
                   GridLinesVisibility="All" ColumnWidth="*" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Header="Übernehmen" Width="125"/>
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.Header>
+                        <CheckBox x:Name="hSelectAll" Content="Übernehmen" Width="125"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding IsChecked, ElementName=hSelectAll, Mode=OneWay}"
+                                      VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

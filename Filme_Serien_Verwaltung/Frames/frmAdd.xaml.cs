@@ -99,5 +99,6 @@ namespace GUIApp.Frames
         {
             dgridNew.Columns[0].Visibility = Visibility.Hidden;
         }
+
     }
 }
