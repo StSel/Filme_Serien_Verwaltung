@@ -95,7 +95,8 @@
   <ItemGroup>
     <Compile Include="APIAccess.cs" />
     <Compile Include="DataAccessObject.cs" />
-    <Compile Include="MyObject.cs" />
+    <Compile Include="MediaObject.cs" />
+    <Compile Include="VideoDumpObj.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

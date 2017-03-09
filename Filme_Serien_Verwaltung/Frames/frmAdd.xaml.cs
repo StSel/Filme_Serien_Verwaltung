@@ -2,27 +2,28 @@
 using MahApps.Metro.Controls;
 using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using static Data.APIAccess;
 
 namespace GUIApp.Frames
 {
+    public delegate void procFillMediaList();
     /// <summary>
     /// Interaktionslogik für frmAdd.xaml
     /// </summary>
     public partial class frmAdd : MetroWindow
     {
+
         private APIAccess _APIAcc;
-        private string _APIKey;
-        private ObservableCollection<MyObject> _MyList = new ObservableCollection<MyObject>();
+        private ObservableCollection<VideoDumpObj> _MyList = new ObservableCollection<VideoDumpObj>();
 
-        public ObservableCollection<MyObject> MyList { get { return _MyList; }}
+        public ObservableCollection<VideoDumpObj> MyList { get { return _MyList; }}
 
-        public frmAdd(string APIKey)
+        public event procFillMediaList FillMediaObjList;
+
+        public frmAdd(APIAccess APIAccess)
         {
-            _APIKey = APIKey;
+            _APIAcc = APIAccess;
 
             InitializeComponent();
         }
@@ -36,11 +37,11 @@ namespace GUIApp.Frames
 
             if (tbSearchBox.Text == "" || tbSearchBox.Text == "Suchen...")
             {
-                btnSearchClear.Visibility = System.Windows.Visibility.Hidden;
+                btnSearchClear.Visibility = Visibility.Hidden;
             }
             else
             {
-                btnSearchClear.Visibility = System.Windows.Visibility.Visible;
+                btnSearchClear.Visibility = Visibility.Visible;
             }
         }
 
@@ -48,18 +49,17 @@ namespace GUIApp.Frames
         {
             if (tbSearchBox.Text == "" && tbSearchBox.Text != "Suchen...")
             {
-                btnSearchClear.Visibility = System.Windows.Visibility.Hidden;
+                btnSearchClear.Visibility = Visibility.Hidden;
             }
             else
             {
-                btnSearchClear.Visibility = System.Windows.Visibility.Visible;
+                btnSearchClear.Visibility = Visibility.Visible;
             }
 
             if(e.Key == System.Windows.Input.Key.Enter)
             {
                 _MyList.Clear();
-                _APIAcc.FillList(_MyList, tbSearchBox.Text);
-                dgridNew.Columns[0].Visibility = Visibility.Visible;
+                _APIAcc.FillDumpList(_MyList, tbSearchBox.Text);
                 dgridNew.ItemsSource = _MyList;
             }
         }
@@ -74,31 +74,30 @@ namespace GUIApp.Frames
 
         private void btnSearchClear_Click(object sender, RoutedEventArgs e)
         {
-            if (btnSearchClear.Visibility == System.Windows.Visibility.Visible)
+            if (btnSearchClear.Visibility == Visibility.Visible)
             {
                 tbSearchBox.Clear();
                 tbSearchBox.Focus();
             }
         }
 
-        private void MetroWindow_Initialized(object sender, System.EventArgs e)
+        private void MetroWindow_Initialized(object sender, EventArgs e)
         {
             btnSearchClear.Visibility = Visibility.Hidden;
-
-            _APIAcc = new APIAccess(this);
-            _APIAcc.Initialize(_APIKey);
         }
 
-        private void frmAdd_SizeChanged(object sender, SizeChangedEventArgs e)
+        private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            var deltaWidth = (e.NewSize.Width - e.PreviousSize.Width);
-           // dgridNew.Width += deltaWidth;
-        }
+            for(int i = 0; i < dgridNew.Items.Count; i++)
+            {
+                VideoDumpObj item = dgridNew.Items[i] as VideoDumpObj;
 
-        private void frmAdd1_Activated(object sender, EventArgs e)
-        {
-            dgridNew.Columns[0].Visibility = Visibility.Hidden;
+                if(item.Checked == true)
+                {
+                    _APIAcc.IDList.Add(item.ID);
+                }
+            }
+            FillMediaObjList();
         }
-
     }
 }

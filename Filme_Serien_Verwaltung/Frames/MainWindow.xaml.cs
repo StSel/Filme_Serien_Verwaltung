@@ -2,6 +2,7 @@
 using MahApps.Metro.Controls;
 using Data;
 using System;
+using System.Collections.ObjectModel;
 
 namespace GUIApp.Frames
 {
@@ -13,6 +14,11 @@ namespace GUIApp.Frames
         private string _settings = Interfaces.GlobalResources.SettingIni;
         private SettingsHandler _handlerSettings;
         private DataAccessObject _dao;
+        private APIAccess _apiAccess;
+
+        private ObservableCollection<MediaObject> _MediaList = new ObservableCollection<MediaObject>();
+
+        public ObservableCollection<MediaObject> MediaList { get { return _MediaList; } }
 
         public MainWindow()
         {
@@ -47,11 +53,14 @@ namespace GUIApp.Frames
                         }
                 }
             }
-        }
-
-        private void btnEinstellungen_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            ShowEinstell();
+            if(_handlerSettings.APIKey != "")
+            {
+                _apiAccess = new APIAccess(this);
+                _apiAccess.Initialize(_handlerSettings.APIKey);
+            } else
+            {
+                ShowEinstell();
+            }
         }
 
         private void UpdateMainWindow()
@@ -62,6 +71,17 @@ namespace GUIApp.Frames
             {
                 _dao = new DataAccessObject(Convert.ToInt16(_handlerSettings.DatabaseFormat), _handlerSettings.DBPath + "\\" + _handlerSettings.DBFile);
             }
+
+            if(_apiAccess == null)
+            {
+                _apiAccess = new APIAccess(this);
+                _apiAccess.Initialize(_handlerSettings.APIKey);
+            }
+        }
+
+        private void FillMediaList()
+        {
+            _apiAccess.FillMediaList(_MediaList);
         }
 
         private void Ctrl_ClickRight(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -186,8 +206,9 @@ namespace GUIApp.Frames
 
         private void ShowFrmAdd()
         {
-            frmAdd lfrmAdd = new frmAdd(_handlerSettings.APIKey);
+            frmAdd lfrmAdd = new frmAdd(_apiAccess);
             lfrmAdd.Owner = this;
+            lfrmAdd.FillMediaObjList += new procFillMediaList(FillMediaList);
             lfrmAdd.ShowDialog();
         }
         #endregion
