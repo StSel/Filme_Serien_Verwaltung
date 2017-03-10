@@ -16,24 +16,35 @@ namespace Data
 
         private TMDbClient _client;
         private MetroWindow _parent;
-        private List<int> _IDList = new List<int>();
+        private List<VideoDumpObj> _dumpList = new List<VideoDumpObj>();
 
-        public List<int> IDList
+        public List<VideoDumpObj> DumpList
         {
             get
             {
-                return _IDList;
+                return _dumpList;
             }
-
             set
             {
-                _IDList = value;
+                _dumpList = value;
             }
         }
 
-        public APIAccess(MetroWindow Parent)
+        public MetroWindow Parent
         {
-            _parent = Parent;
+            get
+            {
+                return _parent;
+            }
+            set
+            {
+                _parent = value;
+            }
+        }
+
+        public APIAccess()
+        {
+            
         }
 
         async public void Initialize(string APIKey)
@@ -66,7 +77,7 @@ namespace Data
                     releasedate = Convert.ToDateTime(result.ReleaseDate);
                 }
 
-                List.Add(InitMyObj(result.Id, result.Title, result.MediaType.ToString(), releasedate));
+                List.Add(InitMyObj(result.Id, result.Title, "Film", releasedate));
             }
 
             SearchContainer<SearchTv> seasonResults = _client.SearchTvShowAsync(Search).Result;
@@ -80,34 +91,34 @@ namespace Data
                     releasedate = Convert.ToDateTime(result.FirstAirDate);
                 }
 
-                List.Add(InitMyObj(result.Id, result.Name, result.MediaType.ToString(), releasedate));
+                List.Add(InitMyObj(result.Id, result.Name, "Serie", releasedate));
             }
         }
 
         public async void FillMediaList(ObservableCollection<MediaObject> AMediaList)
         {
-            for(int i = 0; i < _IDList.Count; i++)
+            foreach(var item in _dumpList)
             {
-                Movie movie = _client.GetMovieAsync(_IDList[i]).Result;
-                if(movie != null)
+                if(item.Type == "Film")
                 {
-                    AMediaList.Add(InitMediaObj(movie.Id, movie.Title, movie.Overview, movie.Genres, Convert.ToDateTime(movie.ReleaseDate), movie.PosterPath, movie.VoteAverage, movie.Images, "Film", 
-                        null, null, null, movie.Popularity));
+                    Movie movie = _client.GetMovieAsync(item.ID).Result;
+
+                    AMediaList.Add(InitMediaObj(movie.Id, movie.Title, movie.Overview, movie.Genres, Convert.ToDateTime(movie.ReleaseDate), movie.PosterPath, movie.VoteAverage, 
+                        movie.Images, "Film", null, null, null, movie.Popularity));
+
+                } else if(item.Type == "Serie")
+                {
+                    TvShow show = _client.GetTvShowAsync(item.ID).Result;
+
+                    AMediaList.Add(InitMediaObj(show.Id, show.Name, show.Overview, show.Genres, null, show.PosterPath, show.VoteAverage, show.Images, "Serie", show.FirstAirDate,
+                        show.LastAirDate, show.NumberOfSeasons, show.Popularity));
                 } else
                 {
-                    TvShow show = _client.GetTvShowAsync(_IDList[i]).Result;
-                    if(show != null)
-                    {
-                        AMediaList.Add(InitMediaObj(show.Id, show.Name, show.Overview, show.Genres, null, show.PosterPath, show.VoteAverage, show.Images, "Serie", show.FirstAirDate,
-                            show.LastAirDate, show.NumberOfSeasons, show.Popularity));
-                    } else
-                    {
-                        var MsgSettings = new MetroDialogSettings();
-                        MsgSettings.DialogMessageFontSize = 15;
+                    var MsgSettings = new MetroDialogSettings();
+                    MsgSettings.DialogMessageFontSize = 15;
 
-                        var msg = _parent.ShowMessageAsync("Fehler", "Film/Serie nicht gefunden", MessageDialogStyle.Affirmative, MsgSettings);
-                        var msgResponse = await msg;
-                    }
+                    var msg = _parent.ShowMessageAsync("Fehler", "Film/Serie nicht gefunden", MessageDialogStyle.Affirmative, MsgSettings);
+                    var msgResponse = await msg;
                 }
             }
         }

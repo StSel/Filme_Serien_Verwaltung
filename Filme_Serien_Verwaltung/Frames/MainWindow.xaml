@@ -172,7 +172,14 @@
                 Style="{StaticResource BtnShadowTextOnHover}">
             </Button>
         </DockPanel>
-        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="245" Margin="10,0,0,0" Grid.Row="1" 
-                 VerticalAlignment="Bottom" Width="220"/>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="245" 
+                 Margin="10,0,0,0" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 VerticalAlignment="Bottom" Width="220">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Titel}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
     </Grid>
 </Controls:MetroWindow>

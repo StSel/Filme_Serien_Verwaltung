@@ -16,9 +16,10 @@ namespace GUIApp.Frames
         private DataAccessObject _dao;
         private APIAccess _apiAccess;
 
+        private ObservableCollection<MediaObject> _dumplist = new ObservableCollection<MediaObject>();
         private ObservableCollection<MediaObject> _MediaList = new ObservableCollection<MediaObject>();
 
-        public ObservableCollection<MediaObject> MediaList { get { return _MediaList; } }
+        public ObservableCollection<MediaObject> MediaList { get { return _dumplist; } }
 
         public MainWindow()
         {
@@ -55,7 +56,7 @@ namespace GUIApp.Frames
             }
             if(_handlerSettings.APIKey != "")
             {
-                _apiAccess = new APIAccess(this);
+                _apiAccess = new APIAccess();
                 _apiAccess.Initialize(_handlerSettings.APIKey);
             } else
             {
@@ -74,14 +75,25 @@ namespace GUIApp.Frames
 
             if(_apiAccess == null)
             {
-                _apiAccess = new APIAccess(this);
+                _apiAccess = new APIAccess();
                 _apiAccess.Initialize(_handlerSettings.APIKey);
             }
         }
 
         private void FillMediaList()
         {
-            _apiAccess.FillMediaList(_MediaList);
+            _dumplist.Clear();
+            _apiAccess.FillMediaList(_dumplist);
+
+            foreach (var item in _dumplist)
+            {
+                if(!(_MediaList.Contains(item)))
+                {
+                    _MediaList.Add(item);
+                }
+            }
+
+            listBox.ItemsSource = _MediaList;
         }
 
         private void Ctrl_ClickRight(object sender, System.Windows.Input.MouseButtonEventArgs e)

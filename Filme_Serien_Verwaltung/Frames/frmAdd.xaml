@@ -80,9 +80,9 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Titel" Binding="{Binding Title}"/>
-                <DataGridTextColumn Header="Typ" Binding="{Binding Type}"/>
-                <DataGridTextColumn Header="Release" Binding="{Binding Release, StringFormat='0:dd.MM.yyyy'}"/>
+                <DataGridTextColumn Header="Titel" Binding="{Binding Title}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Typ" Binding="{Binding Type}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Release" Binding="{Binding Release, StringFormat='0:dd.MM.yyyy'}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="btnAbbrechen" 

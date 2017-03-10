@@ -24,6 +24,7 @@ namespace GUIApp.Frames
         public frmAdd(APIAccess APIAccess)
         {
             _APIAcc = APIAccess;
+            _APIAcc.Parent = this;
 
             InitializeComponent();
         }
@@ -61,6 +62,13 @@ namespace GUIApp.Frames
                 _MyList.Clear();
                 _APIAcc.FillDumpList(_MyList, tbSearchBox.Text);
                 dgridNew.ItemsSource = _MyList;
+
+                if(_MyList.Count > 0)
+                {
+                    dgridNew.CurrentCell = new DataGridCellInfo(dgridNew.Items[1], dgridNew.Columns[0]);
+                    dgridNew.BeginEdit();
+                    dgridNew.Focus();
+                }
             }
         }
 
@@ -88,16 +96,19 @@ namespace GUIApp.Frames
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            for(int i = 0; i < dgridNew.Items.Count; i++)
+            _APIAcc.DumpList.Clear();
+            foreach(VideoDumpObj item in dgridNew.ItemsSource)
             {
-                VideoDumpObj item = dgridNew.Items[i] as VideoDumpObj;
-
                 if(item.Checked == true)
                 {
-                    _APIAcc.IDList.Add(item.ID);
+                    _APIAcc.DumpList.Add(item);
                 }
             }
+
             FillMediaObjList();
+
+            _MyList.Clear();
+            tbSearchBox.Focus();
         }
     }
 }
