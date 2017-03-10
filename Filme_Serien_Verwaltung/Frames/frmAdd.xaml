@@ -70,7 +70,7 @@
         <DataGrid x:Name="dgridNew" HorizontalAlignment="Stretch" 
                   VerticalAlignment="Stretch" Grid.ColumnSpan="2" Grid.Row="1"
                   GridLinesVisibility="All" ColumnWidth="*" IsReadOnly="True"
-                  AutoGenerateColumns="False">
+                  AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Übernehmen" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
@@ -82,7 +82,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Titel" Binding="{Binding Title}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Typ" Binding="{Binding Type}" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Release" Binding="{Binding Release, StringFormat='0:dd.MM.yyyy'}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Release" Binding="{Binding Release, StringFormat='dd.MM.yyyy'}" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="btnAbbrechen" 

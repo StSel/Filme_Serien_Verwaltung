@@ -65,9 +65,39 @@ namespace GUIApp.Frames
 
                 if(_MyList.Count > 0)
                 {
-                    dgridNew.CurrentCell = new DataGridCellInfo(dgridNew.Items[1], dgridNew.Columns[0]);
-                    dgridNew.BeginEdit();
-                    dgridNew.Focus();
+                    foreach(DataGridColumn col in dgridNew.Columns)
+                    {
+                        switch(col.DisplayIndex)
+                        {
+                            case 0:
+                                {
+                                    col.Width = new DataGridLength(1.0, DataGridLengthUnitType.SizeToHeader);
+                                    break;
+                                }
+                            case 1:
+                                {
+                                    col.Width = new DataGridLength(1.0, DataGridLengthUnitType.SizeToCells);
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    col.Width = new DataGridLength(1.0, DataGridLengthUnitType.SizeToHeader);
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    col.Width = new DataGridLength(1.0, DataGridLengthUnitType.Star);
+                                    break;
+                                }
+                        }
+                    }
+
+                    Dispatcher.Invoke(new Action(delegate ()
+                    {
+                        dgridNew.SelectedIndex = 0;
+                        dgridNew.Focus();
+                    }
+                    ), System.Windows.Threading.DispatcherPriority.Background);
                 }
             }
         }
