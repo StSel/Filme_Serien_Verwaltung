@@ -33,7 +33,29 @@ namespace GUIApp.Frames
                 _dao = new DataAccessObject(Convert.ToInt16(_handlerSettings.DatabaseFormat), _handlerSettings.DBPath + "\\" + _handlerSettings.DBFile);
             }
 
-            if(_handlerSettings.View != 0)
+            SetView();
+            SetAPIKey();
+        }
+
+        private void FillMediaList()
+        {
+            _dumplist.Clear();
+            _apiAccess.FillMediaList(_dumplist);
+
+            foreach (var item in _dumplist)
+            {
+                if(!(_MediaList.Contains(item)))
+                {
+                    _MediaList.Add(item);
+                }
+            }
+
+            listBox.ItemsSource = _MediaList;
+        }
+
+        private void SetView()
+        {
+            if (_handlerSettings.View != 0)
             {
                 switch (_handlerSettings.View)
                 {
@@ -54,46 +76,19 @@ namespace GUIApp.Frames
                         }
                 }
             }
-            if(_handlerSettings.APIKey != "")
+        }
+
+        private void SetAPIKey()
+        {
+            if (_handlerSettings.APIKey != "")
             {
                 _apiAccess = new APIAccess();
                 _apiAccess.Initialize(_handlerSettings.APIKey);
-            } else
+            }
+            else
             {
                 ShowEinstell();
             }
-        }
-
-        private void UpdateMainWindow()
-        {
-            _handlerSettings.loadSettings(_settings);
-
-            if(_dao == null)
-            {
-                _dao = new DataAccessObject(Convert.ToInt16(_handlerSettings.DatabaseFormat), _handlerSettings.DBPath + "\\" + _handlerSettings.DBFile);
-            }
-
-            if(_apiAccess == null)
-            {
-                _apiAccess = new APIAccess();
-                _apiAccess.Initialize(_handlerSettings.APIKey);
-            }
-        }
-
-        private void FillMediaList()
-        {
-            _dumplist.Clear();
-            _apiAccess.FillMediaList(_dumplist);
-
-            foreach (var item in _dumplist)
-            {
-                if(!(_MediaList.Contains(item)))
-                {
-                    _MediaList.Add(item);
-                }
-            }
-
-            listBox.ItemsSource = _MediaList;
         }
 
         private void Ctrl_ClickRight(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -106,49 +101,40 @@ namespace GUIApp.Frames
             ShowEinstell();
         }
 
+        private void miAddClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ShowFrmAdd();
+        }
+
+        private void btnSearchClear_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if(btnSearchClear.Visibility == System.Windows.Visibility.Visible)
+            {
+                tbSearchBox.Clear();
+                tbSearchBox.Focus();
+            }
+        }
+
+        #region MainWindow
         private void frmMain_SizeChanged(object sender, System.Windows.SizeChangedEventArgs e)
         {
             var deltaWidth = (e.NewSize.Width - e.PreviousSize.Width);
             pnlToolbar.Width += deltaWidth;
         }
 
-        private void btnListView_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            btnRasterView.IsChecked = false;
-            btnDetailView.IsChecked = false;
-            btnListView.IsChecked = true;
-        }
-
-        private void btnRasterView_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            btnListView.IsChecked = false;
-            btnDetailView.IsChecked = false;
-            btnRasterView.IsChecked = true;
-        }
-
-        private void btnDetailView_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            btnListView.IsChecked = false;
-            btnRasterView.IsChecked = false;
-            btnDetailView.IsChecked = true;
-        }
-
-        private void miAddClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            ShowFrmAdd();
-        }
-
         private void frmMain_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _handlerSettings.View = 0;
 
-            if(btnDetailView.IsChecked == true)
+            if (btnDetailView.IsChecked == true)
             {
                 _handlerSettings.View = 1;
-            } else if (btnListView.IsChecked == true)
+            }
+            else if (btnListView.IsChecked == true)
             {
                 _handlerSettings.View = 2;
-            } else if (btnRasterView.IsChecked == true)
+            }
+            else if (btnRasterView.IsChecked == true)
             {
                 _handlerSettings.View = 3;
             }
@@ -156,17 +142,50 @@ namespace GUIApp.Frames
             _handlerSettings.SaveView();
         }
 
-        private void tbSearchBox_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void frmMain_Initialized(object sender, EventArgs e)
         {
-            if(tbSearchBox.Text == "Suchen...")
-            {
-                tbSearchBox.Clear();
-            }
+            btnSearchClear.Visibility = System.Windows.Visibility.Hidden;
         }
 
+        private void UpdateMainWindow()
+        {
+            _handlerSettings.loadSettings(_settings);
+
+            if (_dao == null)
+            {
+                _dao = new DataAccessObject(Convert.ToInt16(_handlerSettings.DatabaseFormat), _handlerSettings.DBPath + "\\" + _handlerSettings.DBFile);
+            }
+
+            if (_apiAccess == null)
+            {
+                _apiAccess = new APIAccess();
+                _apiAccess.Initialize(_handlerSettings.APIKey);
+            }
+        }
+        #endregion
+
+        #region Show Windows
+        private void ShowEinstell()
+        {
+            frmSettings frmEinstell = new frmSettings(_handlerSettings);
+            frmEinstell.Owner = this;
+            frmEinstell.UpdateMainWindow += new HandlerUpdateWindow(UpdateMainWindow);
+            frmEinstell.ShowDialog();
+        }
+
+        private void ShowFrmAdd()
+        {
+            frmAdd lfrmAdd = new frmAdd(_apiAccess);
+            lfrmAdd.Owner = this;
+            lfrmAdd.FillMediaObjList += new procFillMediaList(FillMediaList);
+            lfrmAdd.ShowDialog();
+        }
+        #endregion
+
+        #region SearchBox
         private void tbSearchBox_LostFocus(object sender, System.Windows.RoutedEventArgs e)
         {
-            if(tbSearchBox.Text == "")
+            if (tbSearchBox.Text == "")
             {
                 tbSearchBox.Text = "Suchen...";
             }
@@ -193,36 +212,37 @@ namespace GUIApp.Frames
             }
         }
 
-        private void frmMain_Initialized(object sender, EventArgs e)
+        private void tbSearchBox_GotFocus(object sender, System.Windows.RoutedEventArgs e)
         {
-            btnSearchClear.Visibility = System.Windows.Visibility.Hidden;
-        }
-
-        private void btnSearchClear_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if(btnSearchClear.Visibility == System.Windows.Visibility.Visible)
+            if (tbSearchBox.Text == "Suchen...")
             {
                 tbSearchBox.Clear();
-                tbSearchBox.Focus();
             }
         }
+        #endregion
 
-        #region Show Windows
-        private void ShowEinstell()
+        #region View Buttons
+        private void btnListView_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            frmSettings frmEinstell = new frmSettings(_handlerSettings);
-            frmEinstell.Owner = this;
-            frmEinstell.UpdateMainWindow += new HandlerUpdateWindow(UpdateMainWindow);
-            frmEinstell.ShowDialog();
+            btnRasterView.IsChecked = false;
+            btnDetailView.IsChecked = false;
+            btnListView.IsChecked = true;
         }
 
-        private void ShowFrmAdd()
+        private void btnRasterView_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            frmAdd lfrmAdd = new frmAdd(_apiAccess);
-            lfrmAdd.Owner = this;
-            lfrmAdd.FillMediaObjList += new procFillMediaList(FillMediaList);
-            lfrmAdd.ShowDialog();
+            btnListView.IsChecked = false;
+            btnDetailView.IsChecked = false;
+            btnRasterView.IsChecked = true;
+        }
+
+        private void btnDetailView_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            btnListView.IsChecked = false;
+            btnRasterView.IsChecked = false;
+            btnDetailView.IsChecked = true;
         }
         #endregion
+
     }
 }

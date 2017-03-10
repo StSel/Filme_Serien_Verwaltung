@@ -134,7 +134,7 @@
                  Text="Suchen..." 
                  VerticalAlignment="Bottom" Width="111"
                  Grid.Column="0"
-                 BorderThickness="0" PreviewMouseLeftButtonUp="tbSearchBox_MouseLeftButtonUp" LostFocus="tbSearchBox_LostFocus" PreviewKeyUp="tbSearchBox_PreviewKeyUp">
+                 BorderThickness="0" LostFocus="tbSearchBox_LostFocus" PreviewKeyUp="tbSearchBox_PreviewKeyUp" GotFocus="tbSearchBox_GotFocus">
                 <TextBox.Background>
                     <LinearGradientBrush>
                         <GradientStop Color="#FF343434"/>

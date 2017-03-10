@@ -102,14 +102,6 @@ namespace GUIApp.Frames
             }
         }
 
-        private void tbSearchBox_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (tbSearchBox.Text == "Suchen...")
-            {
-                tbSearchBox.Clear();
-            }
-        }
-
         private void btnSearchClear_Click(object sender, RoutedEventArgs e)
         {
             if (btnSearchClear.Visibility == Visibility.Visible)
@@ -122,14 +114,35 @@ namespace GUIApp.Frames
         private void MetroWindow_Initialized(object sender, EventArgs e)
         {
             btnSearchClear.Visibility = Visibility.Hidden;
+            tbSearchBox.Focus();
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            _APIAcc.DumpList.Clear();
-            foreach(VideoDumpObj item in dgridNew.ItemsSource)
+            FillLists();
+
+            DialogResult = true;
+        }
+
+        private void tbSearchBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbSearchBox.Text == "Suchen...")
             {
-                if(item.Checked == true)
+                tbSearchBox.Clear();
+            }
+        }
+
+        private void btnHinzufuegen_Click(object sender, RoutedEventArgs e)
+        {
+            FillLists();
+        }
+
+        private void FillLists()
+        {
+            _APIAcc.DumpList.Clear();
+            foreach (VideoDumpObj item in dgridNew.ItemsSource)
+            {
+                if (item.Checked == true)
                 {
                     _APIAcc.DumpList.Add(item);
                 }

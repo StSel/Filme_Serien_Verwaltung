@@ -2,7 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-        Title="Filme oder Serien hinzufügen" Height="300" Width="600"
+        Title="Filme oder Serien hinzufügen"         
+        Height="355" 
+        Width="600" 
         WindowStartupLocation="CenterOwner" Topmost="True" ShowInTaskbar="False" 
         BorderThickness="1" ResizeMode="CanResizeWithGrip" 
         BorderBrush="#4C017CAA" 
@@ -42,7 +44,7 @@
                  Text="Suchen..." 
                  VerticalAlignment="Bottom" Width="185"
                  Grid.Column="0"
-                 BorderThickness="0" PreviewMouseLeftButtonUp="tbSearchBox_MouseLeftButtonUp" LostFocus="tbSearchBox_LostFocus" PreviewKeyUp="tbSearchBox_PreviewKeyUp">
+                 BorderThickness="0" LostFocus="tbSearchBox_LostFocus" PreviewKeyUp="tbSearchBox_PreviewKeyUp" GotFocus="tbSearchBox_GotFocus">
                 <TextBox.Background>
                     <LinearGradientBrush>
                         <GradientStop Color="#FF343434"/>
@@ -101,5 +103,14 @@
                 Grid.Row="2" 
                 VerticalAlignment="Bottom" 
                 Width="100" Click="btnOk_Click"/>
+        <Button x:Name="btnHinzufuegen" 
+                Content="Hinzufügen" 
+                Grid.Column="0" 
+                HorizontalAlignment="Right" 
+                Margin="0,0,130,4" 
+                Grid.Row="2" 
+                VerticalAlignment="Bottom" 
+                Width="100"
+                Click="btnHinzufuegen_Click"/>
     </Grid>
 </Controls:MetroWindow>

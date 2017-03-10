@@ -4,7 +4,7 @@ using TMDbLib.Objects.General;
 
 namespace Data
 {
-    public class MediaObject
+    public class MediaObject : IEquatable<MediaObject>
     {
         public int ID { get; set; }
         public string Titel { get; set; }
@@ -19,5 +19,10 @@ namespace Data
         public DateTime? LastAirDate { get; set; }
         public int? StaffelAnzahl { get; set; }
         public double Popularitaet { get; set; }
+
+        public bool Equals(MediaObject other)
+        {
+            return ((other.ID == ID) && (other.Titel == Titel));
+        }
     }
 }
