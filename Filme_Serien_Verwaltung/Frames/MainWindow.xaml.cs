@@ -3,6 +3,7 @@ using MahApps.Metro.Controls;
 using Data;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace GUIApp.Frames
 {
@@ -35,6 +36,7 @@ namespace GUIApp.Frames
 
             SetView();
             SetAPIKey();
+            SetMenuItemBackupVisibility();
         }
 
         private void FillMediaList()
@@ -91,19 +93,33 @@ namespace GUIApp.Frames
             }
         }
 
-        private void Ctrl_ClickRight(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private bool GetBackupVisibility()
         {
-            e.Handled = true;
+            if(_handlerSettings.DatabaseFormat != "")
+            {
+                if (_handlerSettings.DatabaseFormat == "0")
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
-        private void miEinstellClick(object sender, System.Windows.RoutedEventArgs e)
+        private void SetMenuItemBackupVisibility()
         {
-            ShowEinstell();
-        }
-
-        private void miAddClick(object sender, System.Windows.RoutedEventArgs e)
-        {
-            ShowFrmAdd();
+            if (GetBackupVisibility())
+            {
+                miExportBackup.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                miExportBackup.Visibility = System.Windows.Visibility.Collapsed;
+            }
         }
 
         private void btnSearchClear_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -161,6 +177,8 @@ namespace GUIApp.Frames
                 _apiAccess = new APIAccess();
                 _apiAccess.Initialize(_handlerSettings.APIKey);
             }
+
+            SetMenuItemBackupVisibility();
         }
         #endregion
 
@@ -244,5 +262,36 @@ namespace GUIApp.Frames
         }
         #endregion
 
+        #region Menu Buttons
+        private void Ctrl_ClickRight(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void miEinstellClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ShowEinstell();
+        }
+
+        private void miAddClick(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ShowFrmAdd();
+        }
+
+        private void miImport_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            //
+        }
+
+        private void miExport_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            //
+        }
+
+        private void miExportBackup_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            //
+        }
+        #endregion
     }
 }

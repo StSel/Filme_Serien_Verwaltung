@@ -35,6 +35,22 @@
                             <TextBlock Text="Einstellungen" Margin="-25,0,0,0"/>
                         </MenuItem.Header>
                     </MenuItem>
+                    <Separator/>
+                    <MenuItem Name="miExport" Click="miExport_Click">
+                        <MenuItem.Header>
+                            <TextBlock Text="Liste speichern..." Margin="-25,0,0,0"/>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Name="miExportBackup" Click="miExportBackup_Click">
+                        <MenuItem.Header>
+                            <TextBlock Text="Datensicherung erstellen..." Margin="-25,0,0,0"/>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Name="miImport" Click="miImport_Click">
+                        <MenuItem.Header>
+                            <TextBlock Text="Daten importieren..." Margin="-25,0,0,0"/>
+                        </MenuItem.Header>
+                    </MenuItem>
                     <MenuItem Name="miBeenden">
                         <MenuItem.Header>
                             <TextBlock Text="Beenden" Margin="-25,0,0,0"/>
