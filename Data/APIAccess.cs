@@ -103,14 +103,14 @@ namespace Data
                 {
                     Movie movie = _client.GetMovieAsync(item.ID).Result;
 
-                    AMediaList.Add(InitMediaObj(movie.Id, movie.Title, movie.Overview, movie.Genres, Convert.ToDateTime(movie.ReleaseDate), movie.PosterPath, movie.VoteAverage, 
+                    AMediaList.Add(InitMediaObj(movie.Id, movie.Title, movie.Overview, movie.Genres, Convert.ToDateTime(movie.ReleaseDate), Interfaces.GlobalResources.ResImagePath + movie.PosterPath, movie.VoteAverage, 
                         movie.Images, "Film", null, null, null, movie.Popularity));
 
                 } else if(item.Type == "Serie")
                 {
                     TvShow show = _client.GetTvShowAsync(item.ID).Result;
 
-                    AMediaList.Add(InitMediaObj(show.Id, show.Name, show.Overview, show.Genres, null, show.PosterPath, show.VoteAverage, show.Images, "Serie", show.FirstAirDate,
+                    AMediaList.Add(InitMediaObj(show.Id, show.Name, show.Overview, show.Genres, null, Interfaces.GlobalResources.ResImagePath + show.PosterPath, show.VoteAverage, show.Images, "Serie", show.FirstAirDate,
                         show.LastAirDate, show.NumberOfSeasons, show.Popularity));
                 } else
                 {

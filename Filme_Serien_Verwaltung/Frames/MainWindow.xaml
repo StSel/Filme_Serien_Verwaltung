@@ -88,7 +88,7 @@
             </Menu>
         </Controls:WindowCommands>
     </Controls:MetroWindow.LeftWindowCommands>
-    <Grid Name="gridMain" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
+    <Grid Name="gridMain">
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
@@ -98,6 +98,12 @@
             <ColumnDefinition Width="230"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2"
+                Grid.Row="1">
+            <Canvas.Background>
+                <ImageBrush ImageSource="{Binding ElementName=listBox, Path=SelectedValue}"/>
+            </Canvas.Background>
+        </Canvas>
         <Grid Name="pnlToolbar"
               Grid.Column="1" 
               HorizontalAlignment="Right"
@@ -188,9 +194,10 @@
                 Style="{StaticResource BtnShadowTextOnHover}">
             </Button>
         </DockPanel>
-        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="245" 
-                 Margin="10,0,0,0" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible"
-                 VerticalAlignment="Bottom" Width="220">
+        <ListBox x:Name="listBox" HorizontalAlignment="Left"
+                 Margin="10,5,0,0" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 VerticalAlignment="Stretch" Width="220"
+                 SelectedValuePath="PosterPath">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Titel}"/>

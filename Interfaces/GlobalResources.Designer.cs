@@ -40,9 +40,18 @@ namespace Interfaces {
         private static string resSectionAPIKey = "API-Key";
         private static string resAPIKey = "ApiKey";
         private static string resView = "View";
+        private static string resImagePath = "http://image.tmdb.org/t/p/original/";
 
         private static global::System.Resources.ResourceManager resourceMan;
         private static global::System.Globalization.CultureInfo resourceCulture;
+
+        public static string ResImagePath
+        {
+            get
+            {
+                return resImagePath;
+            }
+        }
 
         public static string View
         {

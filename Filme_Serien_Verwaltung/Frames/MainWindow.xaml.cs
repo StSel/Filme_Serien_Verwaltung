@@ -4,6 +4,9 @@ using Data;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using System.IO;
+using System.Windows.Media.Imaging;
+using System.Drawing;
 
 namespace GUIApp.Frames
 {
@@ -293,5 +296,6 @@ namespace GUIApp.Frames
             //
         }
         #endregion
+
     }
 }
