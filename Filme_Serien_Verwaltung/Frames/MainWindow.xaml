@@ -2,6 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:cachedImg="clr-namespace:CachedImage;assembly=CachedImage"
         Title="" 
         Height="355" 
         Width="600" 
@@ -98,12 +99,16 @@
             <ColumnDefinition Width="230"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Canvas HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.ColumnSpan="2"
-                Grid.Row="1">
-            <Canvas.Background>
-                <ImageBrush ImageSource="{Binding ElementName=listBox, Path=SelectedValue}"/>
-            </Canvas.Background>
-        </Canvas>
+        <cachedImg:Image Stretch="Fill"
+                         Grid.ColumnSpan="2" Grid.RowSpan="2" 
+                         ImageUrl="{Binding ElementName=listBox, Path=SelectedValue}">
+            <cachedImg:Image.OpacityMask>
+                <LinearGradientBrush StartPoint="1,3" EndPoint="0,2.7">
+                    <GradientStop Offset="0" Color="Black"/>
+                    <GradientStop Offset="1" Color="Transparent"/>
+                </LinearGradientBrush>
+            </cachedImg:Image.OpacityMask>
+        </cachedImg:Image>
         <Grid Name="pnlToolbar"
               Grid.Column="1" 
               HorizontalAlignment="Right"
@@ -195,9 +200,11 @@
             </Button>
         </DockPanel>
         <ListBox x:Name="listBox" HorizontalAlignment="Left"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  Margin="10,5,0,0" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible"
                  VerticalAlignment="Stretch" Width="220"
-                 SelectedValuePath="PosterPath">
+                 SelectedValuePath="PosterPath" Background="Transparent"
+                 BorderBrush="Transparent">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Titel}"/>

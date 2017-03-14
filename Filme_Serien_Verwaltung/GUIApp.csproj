@@ -50,6 +50,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CachedImage, Version=0.1.8.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CachedImage.0.1.8.0\lib\net45\CachedImage.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.4.3.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.4.3\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
@@ -106,9 +110,6 @@
     <Compile Include="Frames\frmAdd.xaml.cs">
       <DependentUpon>frmAdd.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SaveHandler\PersonalSettingHandler.cs" />
-    <Compile Include="StyleHandler\StyleManager.cs" />
-    <Compile Include="StyleHandler\ThemesAndAccents.cs" />
     <Page Include="Frames\frmAdd.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

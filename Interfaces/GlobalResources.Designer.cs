@@ -30,8 +30,6 @@ namespace Interfaces {
         private static string resourceNewline = "\n";
 
         private static string resDatabase = "DatabaseFormat";
-        private static string resTheme = "Theme";
-        private static string resAccent = "Accent";
         private static string resSectionDatabase = "Database";
         private static string resSectionAppearence = "Aussehen";
         private static string resStandardDBPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Local Settings\Verwaltung\";
@@ -130,22 +128,6 @@ namespace Interfaces {
             get
             {
                 return resSectionAppearence;
-            }
-        }
-
-        public static string Theme
-        {
-            get
-            {
-                return resTheme;
-            }
-        }
-
-        public static string Accent
-        {
-            get
-            {
-                return resAccent;
             }
         }
 

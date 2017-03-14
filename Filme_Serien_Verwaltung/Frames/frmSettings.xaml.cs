@@ -1,5 +1,4 @@
-﻿using GUIApp.SaveHandler;
-using GUIApp.StyleHandler;
+﻿using Handler.SaveHandler;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.WindowsAPICodePack.Dialogs;

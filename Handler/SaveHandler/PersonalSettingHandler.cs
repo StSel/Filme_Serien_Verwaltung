@@ -1,9 +1,8 @@
 ﻿using System;
 using System.IO;
-using GUIApp.StyleHandler;
 using Interfaces.FileHandler;
 
-namespace GUIApp.SaveHandler
+namespace Handler.SaveHandler
 {
     /*
         Handlerklasse für die Optionen
@@ -13,8 +12,6 @@ namespace GUIApp.SaveHandler
         #region Konstanten
 
         private string cDatabase = Interfaces.GlobalResources.Database;
-        private string cTheme = Interfaces.GlobalResources.Theme;
-        private string cAccent = Interfaces.GlobalResources.Accent;
         private string cSectionAppearence = Interfaces.GlobalResources.SectionAppearence;
         private string cIniFile = Interfaces.GlobalResources.SettingIni;
         private string cSectionDatabase = Interfaces.GlobalResources.SectionDatabase;
@@ -27,9 +24,6 @@ namespace GUIApp.SaveHandler
         #endregion
 
         #region Private Variablen
-
-        private int selectedTheme;
-        private int selectedAccent;
         private string database;
         private string dbpath;
         private string dbfile;
@@ -68,18 +62,6 @@ namespace GUIApp.SaveHandler
             get { return database; }
             set { database = value; }
         }
-
-        public int SelectedTheme
-        {
-            get { return selectedTheme; }
-            set { selectedTheme = value; }
-        }
-
-        public int SelectedAccent
-        {
-            get { return selectedAccent; }
-            set { selectedAccent = value; }
-        }
         #endregion
 
         #region Konstruktor
@@ -92,8 +74,6 @@ namespace GUIApp.SaveHandler
 
         public void initStandardSettings()
         {
-            selectedTheme = (int)StyleManager.getAppTheme();
-            selectedAccent = (int)StyleManager.getAppAccent();
             database = "0";
             dbpath = Interfaces.GlobalResources.StandardDBPath;
             dbfile = "Database.xml";

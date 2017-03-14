@@ -1,12 +1,8 @@
-﻿using GUIApp.SaveHandler;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 using Data;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
-using System.IO;
-using System.Windows.Media.Imaging;
-using System.Drawing;
+using Handler.SaveHandler;
 
 namespace GUIApp.Frames
 {
