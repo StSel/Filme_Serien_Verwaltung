@@ -179,6 +179,14 @@ namespace GUIApp.Frames
 
             SetMenuItemBackupVisibility();
         }
+
+        private void frmMain_PreviewKeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Add)
+            {
+                ShowFrmAdd();
+            }
+        }
         #endregion
 
         #region Show Windows
@@ -293,5 +301,15 @@ namespace GUIApp.Frames
         }
         #endregion
 
+        private void listBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            MediaObject item = listBox.SelectedItem as MediaObject;
+
+            if(item != null)
+            {
+                lblTitleScrView.Text = item.Titel;
+                lblBeschreibungScrView.Text = item.Beschreibung;
+            }
+        }
     }
 }

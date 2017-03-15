@@ -4,8 +4,8 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:cachedImg="clr-namespace:CachedImage;assembly=CachedImage"
         Title="" 
-        Height="355" 
-        Width="600" 
+        Height="500" 
+        Width="750" 
         MinHeight="355"
         MinWidth="600"
         Name="frmMain" 
@@ -18,7 +18,8 @@
         WindowTitleBrush="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" 
         SizeChanged="frmMain_SizeChanged"
         Icon="/Images/tmdbLogo.png"
-        ShowIconOnTitleBar="True" Closing="frmMain_Closing" Initialized="frmMain_Initialized">
+        ShowIconOnTitleBar="True" Closing="frmMain_Closing" 
+        Initialized="frmMain_Initialized" PreviewKeyUp="frmMain_PreviewKeyUp">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -96,26 +97,20 @@
             <RowDefinition Height="35"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="230"></ColumnDefinition>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="130"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <cachedImg:Image Stretch="Fill"
+                         Grid.Column="1"
                          Grid.ColumnSpan="2" Grid.RowSpan="2" 
-                         ImageUrl="{Binding ElementName=listBox, Path=SelectedValue}">
-            <cachedImg:Image.OpacityMask>
-                <LinearGradientBrush StartPoint="1,3" EndPoint="0,2.7">
-                    <GradientStop Offset="0" Color="Black"/>
-                    <GradientStop Offset="1" Color="Transparent"/>
-                </LinearGradientBrush>
-            </cachedImg:Image.OpacityMask>
-        </cachedImg:Image>
+                         ImageUrl="{Binding ElementName=listBox, Path=SelectedValue}"
+                         Opacity="0.7"/>
         <Grid Name="pnlToolbar"
-              Grid.Column="1" 
-              HorizontalAlignment="Right"
-              Height="26" 
-              Margin="0,0,5,5" 
-              VerticalAlignment="Bottom" 
-              Width="355"
+              Grid.Column="2" 
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Margin="0,5,5,5" 
               Background="#FF343434">
             <ToggleButton x:Name="btnRasterView" Height="20" Style="{StaticResource ButtonRasterView}"
                     Background="#FF343434"
@@ -144,8 +139,11 @@
                    Foreground="#FF858585">
             </Label>
         </Grid>
-        <DockPanel Height="30" Width="225" HorizontalAlignment="Right"
-                   VerticalAlignment="Bottom" Margin="0,0,2,2">
+        <DockPanel HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch"
+                   Margin="5,5,0,3"
+                   Grid.ColumnSpan="2"
+                   Grid.Row="0">
             <Button BorderThickness="0" DockPanel.Dock="Left"
                     HorizontalAlignment="Right" VerticalAlignment="Bottom"
                     Style="{StaticResource BtnWithOutShadow}"
@@ -160,7 +158,6 @@
                  TextWrapping="Wrap" 
                  Text="Suchen..." 
                  VerticalAlignment="Bottom" Width="111"
-                 Grid.Column="0"
                  BorderThickness="0" LostFocus="tbSearchBox_LostFocus" PreviewKeyUp="tbSearchBox_PreviewKeyUp" GotFocus="tbSearchBox_GotFocus">
                 <TextBox.Background>
                     <LinearGradientBrush>
@@ -187,7 +184,7 @@
             </Grid>
             <Button x:Name="btnKategorie"
                 DockPanel.Dock="Right"
-                Grid.Column="0"
+                Grid.Column="1"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
                 Height="26"
@@ -204,12 +201,51 @@
                  Margin="10,5,0,0" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible"
                  VerticalAlignment="Stretch" Width="220"
                  SelectedValuePath="PosterPath" Background="Transparent"
-                 BorderBrush="Transparent">
+                 BorderBrush="Transparent" SelectionChanged="listBox_SelectionChanged"
+                 Grid.ColumnSpan="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Titel}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <ScrollViewer Name="scrViewMain" Grid.Column="2" Grid.Row="1" 
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
+            <Grid Name="grdScrview" VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch" Background="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="175"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="1"
+                       Width="Auto" Height="Auto" VerticalAlignment="Bottom"
+                       HorizontalAlignment="Left">
+                    <TextBlock Name="lblTitleScrView" TextWrapping="WrapWithOverflow"
+                               FontSize="21" Foreground="LightGray" >
+                        <TextBlock.Background>
+                            <SolidColorBrush Color="#FF0A0A0A" Opacity="0.7"/>
+                        </TextBlock.Background>
+                    </TextBlock>
+                </Label>
+                <ScrollViewer Grid.Column="1" Grid.ColumnSpan="2"
+                       Grid.Row="1" Width="Auto" Height="Auto"
+                       VerticalAlignment="Top" HorizontalAlignment="Left"
+                       Margin="0,5,0,0">
+                    <TextBlock Name="lblBeschreibungScrView" FontSize="17" 
+                               TextWrapping="WrapWithOverflow" Foreground="LightGray">
+                        <TextBlock.Background>
+                            <SolidColorBrush Color="#FF0A0A0A" Opacity="0.7"/>
+                        </TextBlock.Background>
+                    </TextBlock>
+                </ScrollViewer>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Controls:MetroWindow>
