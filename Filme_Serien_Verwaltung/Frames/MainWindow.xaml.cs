@@ -81,15 +81,8 @@ namespace GUIApp.Frames
 
         private void SetAPIKey()
         {
-            if (_handlerSettings.APIKey != "")
-            {
-                _apiAccess = new APIAccess();
-                _apiAccess.Initialize(_handlerSettings.APIKey);
-            }
-            else
-            {
-                ShowEinstell();
-            }
+            _apiAccess = new APIAccess();
+            _apiAccess.Initialize();
         }
 
         private bool GetBackupVisibility()
@@ -174,7 +167,7 @@ namespace GUIApp.Frames
             if (_apiAccess == null)
             {
                 _apiAccess = new APIAccess();
-                _apiAccess.Initialize(_handlerSettings.APIKey);
+                _apiAccess.Initialize();
             }
 
             SetMenuItemBackupVisibility();
@@ -309,6 +302,14 @@ namespace GUIApp.Frames
             {
                 lblTitleScrView.Text = item.Titel;
                 lblBeschreibungScrView.Text = item.Beschreibung;
+                lblRatingScrView.Text = "Rating: " + item.Rating.ToString();
+                lblPopuScrView.Text = "Popularität " + item.Popularitaet.ToString();
+
+                lbGenres.Items.Clear();
+                foreach(var genre in item.Genres)
+                {
+                    lbGenres.Items.Add(genre.Name);
+                }
             }
         }
     }

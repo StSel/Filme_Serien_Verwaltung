@@ -48,18 +48,6 @@
                               Width="234" SelectionChanged="CbxDB_SelectionChanged"/>
                 </Grid>
             </TabItem>
-            <TabItem x:Name="tbItemtmdbAPI" Header="TMDB-API" FontSize="13.333" VerticalAlignment="Top"
-                     BorderThickness="1" BorderBrush="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
-                     Controls:ControlsHelper.HeaderFontSize="15">
-                <Grid x:Name="pnlAPIKey" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" 
-                      Margin="0" Height="160">
-                    <Label x:Name="lblAPI" Content="TDM-API-Key" FontSize="11" HorizontalAlignment="Left" 
-                           Margin="10,0,0,109" VerticalAlignment="Bottom" Width="110"/>
-                    <TextBox x:Name="edttmdAPI" HorizontalAlignment="Left" 
-                             Margin="125,0,0,109" VerticalAlignment="Bottom"
-                              Width="350"/>
-                </Grid>
-            </TabItem>
         </TabControl>
         <Grid x:Name="pnlAppearenceBtns" Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Height="52" VerticalAlignment="Top" Margin="0,189,0,0">
             <Button x:Name="btnAccept" Content="Übernehmen" HorizontalAlignment="Right" Margin="0,0,90,10" VerticalAlignment="Bottom" Click="btnAccept_Click"/>

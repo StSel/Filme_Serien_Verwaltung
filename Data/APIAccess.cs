@@ -47,11 +47,12 @@ namespace Data
             
         }
 
-        async public void Initialize(string APIKey)
+        async public void Initialize()
         {
             try
             {
-                _client = new TMDbClient(APIKey);
+                _client = new TMDbClient("86ee40fbf94740af931fb70267593de7");
+                _client.DefaultLanguage = "de";
             }
             catch (Exception e)
             {

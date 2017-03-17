@@ -40,7 +40,6 @@ namespace GUIApp.Frames
 
             CbxDB.SelectedIndex = Convert.ToInt16(_settings.DatabaseFormat);
             edtPathDB.Text = Interfaces.GlobalResources.StandardDBPath + GetDBFormat();
-            edttmdAPI.Text = _settings.APIKey;
 
             _indexDBPath = edtPathDB.Text;
             _indexDBFormat = CbxDB.SelectedIndex;
@@ -50,7 +49,6 @@ namespace GUIApp.Frames
         {
             _settings.DBPath = Handler.FileHandler.IOFunc.GetDirectoryName(edtPathDB.Text);
             _settings.DBFile = Handler.FileHandler.IOFunc.GetFilenameWithExt(edtPathDB.Text);
-            _settings.APIKey = edttmdAPI.Text;
             _settings.saveSettings();
             UpdateMainWindow();
 
