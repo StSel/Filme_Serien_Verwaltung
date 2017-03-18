@@ -13,7 +13,7 @@ namespace Data
         public DateTime? Release { get; set; }
         public string PosterPath { get; set; }
         public double Rating { get; set; }
-        public Images Images { get; set; }
+        public List<ImageData> Images { get; set; }
         public string Typ { get; set; }
         public DateTime? FirstAirDate { get; set; }
         public DateTime? LastAirDate { get; set; }

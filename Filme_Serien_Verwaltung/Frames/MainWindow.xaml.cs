@@ -310,6 +310,11 @@ namespace GUIApp.Frames
                 {
                     lbGenres.Items.Add(genre.Name);
                 }
+
+                foreach(var image in item.Images)
+                {
+                    var po = _apiAccess.GetFullImgPath(image.FilePath);
+                }
             }
         }
     }

@@ -53,6 +53,7 @@ namespace Data
             {
                 _client = new TMDbClient("86ee40fbf94740af931fb70267593de7");
                 _client.DefaultLanguage = "de";
+                _client.GetConfig();
             }
             catch (Exception e)
             {
@@ -102,16 +103,16 @@ namespace Data
             {
                 if(item.Type == "Film")
                 {
-                    Movie movie = _client.GetMovieAsync(item.ID).Result;
+                    Movie movie = _client.GetMovieAsync(item.ID, MovieMethods.Images).Result;
 
-                    AMediaList.Add(InitMediaObj(movie.Id, movie.Title, movie.Overview, movie.Genres, Convert.ToDateTime(movie.ReleaseDate), Interfaces.GlobalResources.ResImagePath + movie.PosterPath, movie.VoteAverage, 
-                        movie.Images, "Film", null, null, null, movie.Popularity));
+                    AMediaList.Add(InitMediaObj(movie.Id, movie.Title, movie.Overview, movie.Genres, Convert.ToDateTime(movie.ReleaseDate), _client.GetImageUrl("original", movie.PosterPath).ToString(), movie.VoteAverage, 
+                        movie.Images.Posters, "Film", null, null, null, movie.Popularity));
 
                 } else if(item.Type == "Serie")
                 {
                     TvShow show = _client.GetTvShowAsync(item.ID).Result;
 
-                    AMediaList.Add(InitMediaObj(show.Id, show.Name, show.Overview, show.Genres, null, Interfaces.GlobalResources.ResImagePath + show.PosterPath, show.VoteAverage, show.Images, "Serie", show.FirstAirDate,
+                    AMediaList.Add(InitMediaObj(show.Id, show.Name, show.Overview, show.Genres, null, _client.GetImageUrl("original", show.PosterPath).ToString(), show.VoteAverage, show.Images.Posters, "Serie", show.FirstAirDate,
                         show.LastAirDate, show.NumberOfSeasons, show.Popularity));
                 } else
                 {
@@ -124,7 +125,12 @@ namespace Data
             }
         }
 
-        private MediaObject InitMediaObj(int id, string title, string beschreibung, List<Genre> genres, DateTime? release, string poster, double rating, Images images, string typ,
+        public string GetFullImgPath(string APath)
+        {
+           return _client.GetImageUrl("original", APath, true).ToString();
+        }
+
+        private MediaObject InitMediaObj(int id, string title, string beschreibung, List<Genre> genres, DateTime? release, string poster, double rating, List<ImageData> images, string typ,
             DateTime? firstairdate, DateTime? lastairdate, int? staffelanz, double popu)
         {
             MediaObject newObj = new MediaObject();
