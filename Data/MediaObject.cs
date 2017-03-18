@@ -19,6 +19,7 @@ namespace Data
         public DateTime? LastAirDate { get; set; }
         public int? StaffelAnzahl { get; set; }
         public double Popularitaet { get; set; }
+        public int? Runtime { get; set; }
 
         public bool Equals(MediaObject other)
         {

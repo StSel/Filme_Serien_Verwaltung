@@ -91,7 +91,6 @@ namespace Handler.SaveHandler
             MyFile.Write(cDatabase, database, cSectionDatabase);
             MyFile.Write(cDatabasePath, dbpath, cSectionDatabase);
             MyFile.Write(cDatabaseFile, dbfile, cSectionDatabase);
-            MyFile.Write(cApiKey, apikey, cSectionAPIKey);
         }
 
         public void SaveView()
@@ -114,7 +113,6 @@ namespace Handler.SaveHandler
             database = MyFile.Read(cDatabase, cSectionDatabase);
             dbpath = MyFile.Read(cDatabasePath, cSectionDatabase);
             dbfile = MyFile.Read(cDatabaseFile, cSectionDatabase);
-            apikey = MyFile.Read(cApiKey, cSectionAPIKey);
             view = Convert.ToInt16(MyFile.Read(cView, cSectionAppearence));
         }
 

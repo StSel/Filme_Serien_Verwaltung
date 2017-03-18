@@ -106,14 +106,26 @@ namespace Data
                     Movie movie = _client.GetMovieAsync(item.ID, MovieMethods.Images).Result;
 
                     AMediaList.Add(InitMediaObj(movie.Id, movie.Title, movie.Overview, movie.Genres, Convert.ToDateTime(movie.ReleaseDate), _client.GetImageUrl("original", movie.PosterPath).ToString(), movie.VoteAverage, 
-                        movie.Images.Posters, "Film", null, null, null, movie.Popularity));
-
+                        movie.Images.Posters, "Film", null, null, null, movie.Popularity, movie.Runtime));
+                    
                 } else if(item.Type == "Serie")
                 {
                     TvShow show = _client.GetTvShowAsync(item.ID).Result;
 
-                    AMediaList.Add(InitMediaObj(show.Id, show.Name, show.Overview, show.Genres, null, _client.GetImageUrl("original", show.PosterPath).ToString(), show.VoteAverage, show.Images.Posters, "Serie", show.FirstAirDate,
-                        show.LastAirDate, show.NumberOfSeasons, show.Popularity));
+                    string lBeschreibung = "";
+                    if(show.Overview != null)
+                    {
+                        lBeschreibung = show.Overview;
+                    }
+
+                    List<ImageData> limgData = new List<ImageData>();
+                    if(show.Images != null)
+                    {
+                        limgData = show.Images.Posters;
+                    }
+
+                    AMediaList.Add(InitMediaObj(show.Id, show.Name, lBeschreibung, show.Genres, null, _client.GetImageUrl("original", show.PosterPath).ToString(), show.VoteAverage, limgData, "Serie", show.FirstAirDate,
+                        show.LastAirDate, show.NumberOfSeasons, show.Popularity, null));
                 } else
                 {
                     var MsgSettings = new MetroDialogSettings();
@@ -125,13 +137,13 @@ namespace Data
             }
         }
 
-        public string GetFullImgPath(string APath)
+        public Uri GetFullImgPath(string aSize, string APath)
         {
-           return _client.GetImageUrl("original", APath, true).ToString();
+           return _client.GetImageUrl(aSize, APath, true);
         }
 
         private MediaObject InitMediaObj(int id, string title, string beschreibung, List<Genre> genres, DateTime? release, string poster, double rating, List<ImageData> images, string typ,
-            DateTime? firstairdate, DateTime? lastairdate, int? staffelanz, double popu)
+            DateTime? firstairdate, DateTime? lastairdate, int? staffelanz, double popu, int? runtime)
         {
             MediaObject newObj = new MediaObject();
 
@@ -147,7 +159,8 @@ namespace Data
             newObj.FirstAirDate = firstairdate;
             newObj.LastAirDate = lastairdate;
             newObj.StaffelAnzahl = staffelanz;
-            newObj.Popularitaet = popu;
+            newObj.Popularitaet = Math.Round(popu, 2);
+            newObj.Runtime = runtime;
 
             return newObj;
         }

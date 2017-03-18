@@ -38,7 +38,14 @@ namespace GUIApp.Frames
        
             _settings = ASettingHandler;
 
-            CbxDB.SelectedIndex = Convert.ToInt16(_settings.DatabaseFormat);
+            if(_settings.DatabaseFormat == "")
+            {
+                CbxDB.SelectedIndex = 0;
+            } else
+            {
+                CbxDB.SelectedIndex = Convert.ToInt16(_settings.DatabaseFormat);
+            }
+           
             edtPathDB.Text = Interfaces.GlobalResources.StandardDBPath + GetDBFormat();
 
             _indexDBPath = edtPathDB.Text;

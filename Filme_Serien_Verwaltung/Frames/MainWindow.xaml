@@ -19,7 +19,7 @@
         SizeChanged="frmMain_SizeChanged"
         Icon="/Images/tmdbLogo.png"
         ShowIconOnTitleBar="True" Closing="frmMain_Closing" 
-        Initialized="frmMain_Initialized" PreviewKeyUp="frmMain_PreviewKeyUp">
+        Initialized="frmMain_Initialized" PreviewKeyUp="frmMain_PreviewKeyUp" Activated="frmMain_Activated">
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -207,7 +207,7 @@
         </DockPanel>
         <ListBox x:Name="listBox" HorizontalAlignment="Left"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 Margin="10,5,0,0" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Visible"
+                 Margin="10,5,0,0" Grid.Row="1" ScrollViewer.VerticalScrollBarVisibility="Auto"
                  VerticalAlignment="Stretch" Width="220"
                  SelectedValuePath="PosterPath" Background="Transparent"
                  BorderBrush="Transparent" SelectionChanged="listBox_SelectionChanged"
@@ -220,13 +220,14 @@
             </ListBox.ItemTemplate>
         </ListBox>
         <ScrollViewer Name="scrViewMain" Grid.Column="2" Grid.Row="1" 
-                      Grid.ColumnSpan="2"
+                      Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto"
             HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent">
             <Grid Name="grdScrview" VerticalAlignment="Stretch"
                   HorizontalAlignment="Stretch" Background="Transparent">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="60"/>
-                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="120"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="150"/>
                     <RowDefinition Height="*"/>
@@ -234,7 +235,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5"/>
                     <ColumnDefinition Width="175"/>
-                    <ColumnDefinition Width="*" MaxWidth="350"/>
+                    <ColumnDefinition Width="*" MaxWidth="550"/>
                     <ColumnDefinition Width="10"/>
                     <ColumnDefinition Width="150"/>
                     <ColumnDefinition Width="*"/>
@@ -243,46 +244,71 @@
                        Width="Auto" Height="Auto" VerticalAlignment="Bottom"
                        HorizontalAlignment="Left">
                     <TextBlock Name="lblTitleScrView" TextWrapping="WrapWithOverflow"
-                               FontSize="21" Foreground="LightGray" >
+                               FontSize="21" Foreground="LightGray" Padding="5">
                         <TextBlock.Background>
                             <SolidColorBrush Color="#FF0A0A0A" Opacity="0.7"/>
                         </TextBlock.Background>
                     </TextBlock>
                 </Label>
-                <Label Grid.Column="4" Grid.Row="1" VerticalAlignment="Top"
+                <Label
+                    Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" VerticalAlignment="Top"
                        HorizontalAlignment="Left" Height="Auto">
-                    <TextBlock Name="lblRatingScrView" FontSize="20" Foreground="LightGray">
+                    <TextBlock Name="lblReleaseScrView" FontSize="20" Foreground="LightGray"
+                               Padding="5">
                         <TextBlock.Background>
                             <SolidColorBrush Color="#FF0A0A0A" Opacity="0.7"/>
                         </TextBlock.Background>
                     </TextBlock>
                 </Label>
-                <ScrollViewer Grid.Column="1" Grid.ColumnSpan="2"
-                       Grid.Row="1" 
-                       VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                       Margin="0,5,0,0">
-                    <TextBlock Name="lblBeschreibungScrView" FontSize="17" 
-                               TextWrapping="WrapWithOverflow" Foreground="LightGray">
+                <Label
+                    Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="1" VerticalAlignment="Bottom"
+                       HorizontalAlignment="Left" Height="Auto" Margin="0,37,0,0">
+                    <TextBlock Name="lblRuntimeScrView" FontSize="20" Foreground="LightGray"
+                               Padding="5">
                         <TextBlock.Background>
                             <SolidColorBrush Color="#FF0A0A0A" Opacity="0.7"/>
                         </TextBlock.Background>
                     </TextBlock>
-                </ScrollViewer>
-                <Label Grid.Column="4" Grid.Row="1" VerticalAlignment="Bottom"
+                </Label>
+                <Label Grid.Column="4" Grid.Row="2" VerticalAlignment="Top"
+                       HorizontalAlignment="Left" Height="Auto">
+                    <TextBlock Name="lblRatingScrView" FontSize="20" Foreground="LightGray"
+                               Padding="5">
+                        <TextBlock.Background>
+                            <SolidColorBrush Color="#FF0A0A0A" Opacity="0.7"/>
+                        </TextBlock.Background>
+                    </TextBlock>
+                </Label>
+                <Label Grid.Column="4" Grid.Row="2" VerticalAlignment="Bottom"
                        HorizontalAlignment="Left" Height="Auto" Width="Auto">
-                    <TextBlock Name="lblPopuScrView" FontSize="17"
+                    <TextBlock Name="lblPopuScrView" FontSize="17" Padding="5"
                                Foreground="LightGray">
                         <TextBlock.Background>
                             <SolidColorBrush Color="#FF0A0A0A" Opacity="0.7"/>
                         </TextBlock.Background>
                     </TextBlock>
                 </Label>
-                <ScrollViewer Name="ScrViewImages" Grid.Column="1" Grid.ColumnSpan="2"
-                      Grid.Row="2" Grid.RowSpan="2"
-                      HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-
+                <ScrollViewer Grid.Column="1" Grid.ColumnSpan="2"
+                       Grid.Row="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                       Margin="0,5,0,0" VerticalScrollBarVisibility="Auto">
+                    <TextBlock Name="lblBeschreibungScrView" FontSize="17" 
+                               TextWrapping="WrapWithOverflow" Foreground="LightGray"
+                               Padding="5">
+                        <TextBlock.Background>
+                            <SolidColorBrush Color="#FF0A0A0A" Opacity="0.7"/>
+                        </TextBlock.Background>
+                    </TextBlock>
                 </ScrollViewer>
-                <Label Grid.Column="4" Grid.Row="2" HorizontalAlignment="Stretch"
+                <ScrollViewer Name="ScrViewImages" Grid.Column="1" Grid.ColumnSpan="2"
+                              Grid.Row="4" VerticalScrollBarVisibility="Hidden"
+                              HorizontalScrollBarVisibility="Auto"
+                              HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <StackPanel Name="stpnlScrViewImg" VerticalAlignment="Stretch"
+                                HorizontalAlignment="Stretch" UseLayoutRounding="True"
+                                Orientation="Horizontal" 
+                                RenderOptions.BitmapScalingMode="HighQuality"/>
+                </ScrollViewer>
+                <Label Grid.Column="4" Grid.Row="3" HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch">
                     <TextBlock Name="lblGenres" FontSize="17" Foreground="#FF5289D8" 
                                Text="Genres" HorizontalAlignment="Stretch"
@@ -292,7 +318,7 @@
                         </TextBlock.Background>
                     </TextBlock>
                 </Label>
-                <ListBox Name="lbGenres" Grid.Column="4" Grid.Row="3"
+                <ListBox Name="lbGenres" Grid.Column="4" Grid.Row="4"
                          Background="Transparent" BorderBrush="Transparent"/>
             </Grid>
         </ScrollViewer>

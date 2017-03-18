@@ -153,6 +153,10 @@ namespace GUIApp.Frames
         private void frmMain_Initialized(object sender, EventArgs e)
         {
             btnSearchClear.Visibility = System.Windows.Visibility.Hidden;
+            if(listBox.Items.Count == 0)
+            {
+                scrViewMain.Visibility = System.Windows.Visibility.Hidden;
+            }
         }
 
         private void UpdateMainWindow()
@@ -180,11 +184,21 @@ namespace GUIApp.Frames
                 ShowFrmAdd();
             }
         }
+
+        private void frmMain_Activated(object sender, EventArgs e)
+        {
+            if (listBox.Items.Count > 0)
+            {
+                scrViewMain.Visibility = System.Windows.Visibility.Visible;
+                listBox.SelectedIndex = 0;
+            }
+        }
         #endregion
 
         #region Show Windows
         private void ShowEinstell()
         {
+            _handlerSettings.SaveView();
             frmSettings frmEinstell = new frmSettings(_handlerSettings);
             frmEinstell.Owner = this;
             frmEinstell.UpdateMainWindow += new HandlerUpdateWindow(UpdateMainWindow);
@@ -245,6 +259,8 @@ namespace GUIApp.Frames
             btnRasterView.IsChecked = false;
             btnDetailView.IsChecked = false;
             btnListView.IsChecked = true;
+
+            _handlerSettings.View = 2;
         }
 
         private void btnRasterView_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -252,6 +268,7 @@ namespace GUIApp.Frames
             btnListView.IsChecked = false;
             btnDetailView.IsChecked = false;
             btnRasterView.IsChecked = true;
+            _handlerSettings.View = 3;
         }
 
         private void btnDetailView_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -259,6 +276,7 @@ namespace GUIApp.Frames
             btnListView.IsChecked = false;
             btnRasterView.IsChecked = false;
             btnDetailView.IsChecked = true;
+            _handlerSettings.View = 1;
         }
         #endregion
 
@@ -301,9 +319,47 @@ namespace GUIApp.Frames
             if(item != null)
             {
                 lblTitleScrView.Text = item.Titel;
-                lblBeschreibungScrView.Text = item.Beschreibung;
+
+                if(item.Beschreibung != "")
+                {
+                    lblBeschreibungScrView.Visibility = System.Windows.Visibility.Visible;
+                    lblBeschreibungScrView.Text = item.Beschreibung;
+                } else
+                {
+                    lblBeschreibungScrView.Visibility = System.Windows.Visibility.Hidden;
+                }
+
                 lblRatingScrView.Text = "Rating: " + item.Rating.ToString();
                 lblPopuScrView.Text = "Popularität " + item.Popularitaet.ToString();
+                
+                if(item.Typ == "Film")
+                {
+                    if(item.Release != null)
+                    {
+                        DateTime date = (DateTime)item.Release;
+                        lblReleaseScrView.Text = "Release: " + date.ToShortDateString();
+                    }
+
+                    lblRuntimeScrView.Text = "Laufzeit: " + item.Runtime.ToString() + " Min";
+                } else
+                {
+                    if(item.FirstAirDate != null)
+                    {
+                        lblReleaseScrView.Visibility = System.Windows.Visibility.Visible;
+                        DateTime fdate = (DateTime)item.FirstAirDate;
+                        lblReleaseScrView.Text = "Beginn: " + fdate.ToShortDateString();
+                        if(item.LastAirDate != null)
+                        {
+                            DateTime ldate = (DateTime)item.LastAirDate;
+                            lblReleaseScrView.Text = lblReleaseScrView.Text + "\n" +
+                                                        "Ende: " + ldate.ToShortDateString();
+                        }
+                    } else
+                    {
+                        lblReleaseScrView.Visibility = System.Windows.Visibility.Hidden;
+                    }
+                    lblRuntimeScrView.Text = "Staffelanzahl: " + item.StaffelAnzahl.ToString();
+                }
 
                 lbGenres.Items.Clear();
                 foreach(var genre in item.Genres)
@@ -311,9 +367,31 @@ namespace GUIApp.Frames
                     lbGenres.Items.Add(genre.Name);
                 }
 
-                foreach(var image in item.Images)
+                stpnlScrViewImg.Children.Clear();
+                if(item.Images.Count > 0)
                 {
-                    var po = _apiAccess.GetFullImgPath(image.FilePath);
+                    ScrViewImages.Visibility = System.Windows.Visibility.Visible;
+                    foreach (var image in item.Images)
+                    {
+                        var bc = new System.Windows.Media.BrushConverter();
+                        System.Windows.Controls.Grid lgrdImage = new System.Windows.Controls.Grid();
+                        lgrdImage.Width = 150;
+                        lgrdImage.Height = 150;
+                        lgrdImage.Background = (System.Windows.Media.Brush)bc.ConvertFrom("#FF0A0A0A");
+                        lgrdImage.Opacity = 0.7;
+
+                        var img = new System.Windows.Media.Imaging.BitmapImage(_apiAccess.GetFullImgPath("w92", image.FilePath));
+                        var imgCtrl = new CachedImage.Image();
+                        imgCtrl.Source = img;
+                        imgCtrl.HorizontalAlignment = System.Windows.HorizontalAlignment.Stretch;
+                        imgCtrl.VerticalAlignment = System.Windows.VerticalAlignment.Stretch;
+                        imgCtrl.Margin = new System.Windows.Thickness(5, 5, 5, 5);
+                        lgrdImage.Children.Add(imgCtrl);
+                        stpnlScrViewImg.Children.Add(lgrdImage);
+                    }
+                } else
+                {
+                    ScrViewImages.Visibility = System.Windows.Visibility.Hidden;
                 }
             }
         }
