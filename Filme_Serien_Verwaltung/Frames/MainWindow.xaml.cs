@@ -277,6 +277,8 @@ namespace GUIApp.Frames
             btnRasterView.IsChecked = false;
             btnDetailView.IsChecked = true;
             _handlerSettings.View = 1;
+
+            tbControlMain.SelectedIndex = 0;
         }
         #endregion
 

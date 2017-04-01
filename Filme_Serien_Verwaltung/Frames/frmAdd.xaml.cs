@@ -153,5 +153,23 @@ namespace GUIApp.Frames
             _MyList.Clear();
             tbSearchBox.Focus();
         }
+
+        private void chbxNewSelAll_Unchecked(object sender, RoutedEventArgs e)
+        {
+            foreach(var item in _MyList)
+            {
+                item.Checked = false;
+            }
+            dgridNew.Items.Refresh();
+        }
+
+        private void chbxNewSelAll_Checked(object sender, RoutedEventArgs e)
+        {
+            foreach(var item in _MyList)
+            {
+                item.Checked = true;
+            }
+            dgridNew.Items.Refresh();
+        }
     }
 }

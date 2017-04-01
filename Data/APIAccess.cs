@@ -29,7 +29,6 @@ namespace Data
                 _dumpList = value;
             }
         }
-
         public MetroWindow Parent
         {
             get
@@ -69,8 +68,9 @@ namespace Data
         public void FillDumpList(ObservableCollection<VideoDumpObj> List, string Search)
         {
             SearchContainer<SearchMovie> movResults = _client.SearchMovieAsync(Search, 0, true).Result;
+            SearchContainer<SearchTv> seasonResults = _client.SearchTvShowAsync(Search).Result;
 
-            foreach(SearchMovie result in movResults.Results)
+            foreach (SearchMovie result in movResults.Results)
             {
                 DateTime releasedate = DateTime.Now;
 
@@ -81,8 +81,6 @@ namespace Data
 
                 List.Add(InitMyObj(result.Id, result.Title, "Film", releasedate));
             }
-
-            SearchContainer<SearchTv> seasonResults = _client.SearchTvShowAsync(Search).Result;
 
             foreach(SearchTv result in seasonResults.Results)
             {

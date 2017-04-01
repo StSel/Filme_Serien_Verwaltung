@@ -72,9 +72,14 @@
         <DataGrid x:Name="dgridNew" HorizontalAlignment="Stretch" 
                   VerticalAlignment="Stretch" Grid.ColumnSpan="2" Grid.Row="1"
                   GridLinesVisibility="All" ColumnWidth="*" IsReadOnly="True"
-                  AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto">
+                  AutoGenerateColumns="False" HorizontalScrollBarVisibility="Auto"
+                  FontSize="13" FontStyle="Normal">
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Übernehmen" IsReadOnly="True">
+                <DataGridTemplateColumn IsReadOnly="True">
+                    <DataGridTemplateColumn.Header>
+                        <CheckBox Name="chbxNewSelAll" Content="Übernehmen"
+                                  FontSize="14" Unchecked="chbxNewSelAll_Unchecked" Checked="chbxNewSelAll_Checked"/>
+                    </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" 
