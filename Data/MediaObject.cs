@@ -9,7 +9,7 @@ namespace Data
         public int ID { get; set; }
         public string Titel { get; set; }
         public string Beschreibung { get; set; }
-        public List<Genre> Genres { get; set; }
+        public string Genres { get; set; }
         public DateTime? Release { get; set; }
         public string PosterPath { get; set; }
         public double Rating { get; set; }

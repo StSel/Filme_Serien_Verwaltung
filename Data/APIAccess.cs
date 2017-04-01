@@ -97,14 +97,18 @@ namespace Data
 
         public async void FillMediaList(ObservableCollection<MediaObject> AMediaList)
         {
+            string genres = "";
             foreach(var item in _dumpList)
             {
                 if(item.Type == "Film")
                 {
                     Movie movie = _client.GetMovieAsync(item.ID, MovieMethods.Images).Result;
 
-                    AMediaList.Add(InitMediaObj(movie.Id, movie.Title, movie.Overview, movie.Genres, Convert.ToDateTime(movie.ReleaseDate), _client.GetImageUrl("original", movie.PosterPath).ToString(), movie.VoteAverage, 
+                    genres = ConvertGenresToString(movie.Genres);
+
+                    AMediaList.Add(InitMediaObj(movie.Id, movie.Title, movie.Overview, genres, Convert.ToDateTime(movie.ReleaseDate), _client.GetImageUrl("original", movie.PosterPath).ToString(), movie.VoteAverage, 
                         movie.Images.Posters, "Film", null, null, null, movie.Popularity, movie.Runtime));
+
                     
                 } else if(item.Type == "Serie")
                 {
@@ -122,7 +126,9 @@ namespace Data
                         limgData = show.Images.Posters;
                     }
 
-                    AMediaList.Add(InitMediaObj(show.Id, show.Name, lBeschreibung, show.Genres, null, _client.GetImageUrl("original", show.PosterPath).ToString(), show.VoteAverage, limgData, "Serie", show.FirstAirDate,
+                    genres = ConvertGenresToString(show.Genres);
+
+                    AMediaList.Add(InitMediaObj(show.Id, show.Name, lBeschreibung, genres, null, _client.GetImageUrl("original", show.PosterPath).ToString(), show.VoteAverage, limgData, "Serie", show.FirstAirDate,
                         show.LastAirDate, show.NumberOfSeasons, show.Popularity, null));
                 } else
                 {
@@ -140,7 +146,23 @@ namespace Data
            return _client.GetImageUrl(aSize, APath, true);
         }
 
-        private MediaObject InitMediaObj(int id, string title, string beschreibung, List<Genre> genres, DateTime? release, string poster, double rating, List<ImageData> images, string typ,
+        private string ConvertGenresToString(List<Genre> list)
+        {
+            string genres = "";
+
+            if(list != null && list.Count > 0)
+            {
+                foreach (Genre genre in list)
+                {
+                    genres += genre.Name + ", ";
+                }
+                genres = genres.Remove(genres.Length - 2);
+            }
+
+            return genres;
+        }
+
+        private MediaObject InitMediaObj(int id, string title, string beschreibung, string genres, DateTime? release, string poster, double rating, List<ImageData> images, string typ,
             DateTime? firstairdate, DateTime? lastairdate, int? staffelanz, double popu, int? runtime)
         {
             MediaObject newObj = new MediaObject();

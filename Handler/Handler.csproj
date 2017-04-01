@@ -47,6 +47,7 @@
     <Compile Include="FileHandler\Inifile.cs" />
     <Compile Include="FileHandler\IOFunctions.cs" />
     <Compile Include="FileHandler\XMLFile.cs" />
+    <Compile Include="GridHandler\GridColumnWidthBehaviour.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveHandler\PersonalSettingHandler.cs" />
   </ItemGroup>

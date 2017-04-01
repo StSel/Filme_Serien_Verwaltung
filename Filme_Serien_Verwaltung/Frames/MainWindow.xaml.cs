@@ -3,6 +3,7 @@ using Data;
 using System;
 using System.Collections.ObjectModel;
 using Handler.SaveHandler;
+using System.Linq;
 
 namespace GUIApp.Frames
 {
@@ -34,7 +35,7 @@ namespace GUIApp.Frames
             }
 
             SetView();
-            SetAPIKey();
+            CreateAPIAccess();
             SetMenuItemBackupVisibility();
         }
 
@@ -50,8 +51,6 @@ namespace GUIApp.Frames
                     _MediaList.Add(item);
                 }
             }
-
-            listBox.ItemsSource = _MediaList;
         }
 
         private void SetView()
@@ -63,23 +62,26 @@ namespace GUIApp.Frames
                     case 1:
                         {
                             btnDetailView.IsChecked = true;
+                            tbControlMain.SelectedIndex = 0;
                             break;
                         }
                     case 2:
                         {
                             btnListView.IsChecked = true;
+                            tbControlMain.SelectedIndex = 1;
                             break;
                         }
                     case 3:
                         {
                             btnRasterView.IsChecked = true;
+                            tbControlMain.SelectedIndex = 2;
                             break;
                         }
                 }
             }
         }
 
-        private void SetAPIKey()
+        private void CreateAPIAccess()
         {
             _apiAccess = new APIAccess();
             _apiAccess.Initialize();
@@ -153,10 +155,11 @@ namespace GUIApp.Frames
         private void frmMain_Initialized(object sender, EventArgs e)
         {
             btnSearchClear.Visibility = System.Windows.Visibility.Hidden;
-            if(listBox.Items.Count == 0)
-            {
-                scrViewMain.Visibility = System.Windows.Visibility.Hidden;
-            }
+            _MediaList.Clear();
+
+            GetMediaList();
+            listBox.ItemsSource = _MediaList;
+            dgridList.ItemsSource = _MediaList;
         }
 
         private void UpdateMainWindow()
@@ -187,10 +190,13 @@ namespace GUIApp.Frames
 
         private void frmMain_Activated(object sender, EventArgs e)
         {
-            if (listBox.Items.Count > 0)
+            if(_MediaList.Count > 0)
             {
                 scrViewMain.Visibility = System.Windows.Visibility.Visible;
                 listBox.SelectedIndex = 0;
+            } else
+            {
+                scrViewMain.Visibility = System.Windows.Visibility.Hidden;
             }
         }
         #endregion
@@ -261,6 +267,8 @@ namespace GUIApp.Frames
             btnListView.IsChecked = true;
 
             _handlerSettings.View = 2;
+
+            tbControlMain.SelectedIndex = 1;
         }
 
         private void btnRasterView_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -363,11 +371,7 @@ namespace GUIApp.Frames
                     lblRuntimeScrView.Text = "Staffelanzahl: " + item.StaffelAnzahl.ToString();
                 }
 
-                lbGenres.Items.Clear();
-                foreach(var genre in item.Genres)
-                {
-                    lbGenres.Items.Add(genre.Name);
-                }
+                lbGenres.ItemsSource = item.Genres.Split(new char[] { ',' }).ToList();
 
                 stpnlScrViewImg.Children.Clear();
                 if(item.Images.Count > 0)
@@ -397,5 +401,11 @@ namespace GUIApp.Frames
                 }
             }
         }
+
+        private void GetMediaList()
+        {
+            //throw new NotImplementedException();
+        }
+
     }
 }

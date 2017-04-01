@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:cachedImg="clr-namespace:CachedImage;assembly=CachedImage"
+        xmlns:GridBehaviour="clr-namespace:Handler.GridHandler;assembly=Handler"
         Title="" 
         Height="700" 
         Width="700" 
@@ -15,6 +16,7 @@
         GlowBrush="Black"
         ResizeMode="CanResizeWithGrip"
         WindowTransitionsEnabled="False"
+        WindowState="Maximized"
         WindowTitleBrush="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" 
         SizeChanged="frmMain_SizeChanged"
         Icon="/Images/tmdbLogo.png"
@@ -183,23 +185,10 @@
                         Style="{StaticResource BtnShadowTextOnHover}">
             </Button>
         </DockPanel>
-        <cachedImg:Image Stretch="Fill"
-                         Grid.Column="1"
-                         Grid.ColumnSpan="3"
-                         Grid.Row="1"
-                         ImageUrl="{Binding ElementName=listBox, Path=SelectedValue}"
-                         Opacity="0.7">
-            <cachedImg:Image.OpacityMask>
-                <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5" >
-                    <GradientStop Offset="0.0" Color="#00000000" />
-                    <GradientStop Offset="1.0" Color="#FF000000" />
-                </LinearGradientBrush>
-            </cachedImg:Image.OpacityMask>
-        </cachedImg:Image>
-        <TabControl Name="tbControlMain" 
+        <TabControl Name="tbControlMain"
                     BorderThickness="0" Grid.ColumnSpan="4" Grid.Row="1"
                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-            <TabItem Name="tbItemDetail" VerticalAlignment="Stretch" 
+            <TabItem Name="tbItemDetail" VerticalAlignment="Stretch" BorderThickness="0"
                       HorizontalAlignment="Stretch">
                 <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
@@ -207,6 +196,18 @@
                         <ColumnDefinition Width="130"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
+                    <cachedImg:Image Stretch="Fill"
+                         Grid.Column="1"
+                         Grid.ColumnSpan="3"
+                         ImageUrl="{Binding ElementName=listBox, Path=SelectedValue}"
+                         Opacity="0.7">
+                        <cachedImg:Image.OpacityMask>
+                            <LinearGradientBrush StartPoint="1,0.5" EndPoint="0,0.5" >
+                                <GradientStop Offset="0.0" Color="#00000000" />
+                                <GradientStop Offset="1.0" Color="#FF000000" />
+                            </LinearGradientBrush>
+                        </cachedImg:Image.OpacityMask>
+                    </cachedImg:Image>
                     <ListBox x:Name="listBox" 
                              ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                              ScrollViewer.VerticalScrollBarVisibility="Auto"
@@ -326,6 +327,24 @@
                         </Grid>
                     </ScrollViewer>
                 </Grid>
+            </TabItem>
+            <TabItem Name="tbItemList" VerticalAlignment="Stretch" 
+                      HorizontalAlignment="Stretch">
+                <DataGrid Name="dgridList" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                          HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+                          GridLinesVisibility="All" IsReadOnly="True"
+                          AutoGenerateColumns="False" FontSize="13" FontStyle="Normal"
+                          GridBehaviour:GridColumnWidthBehaviour.SetMinColProperty="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Titel" Binding="{Binding Titel}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Genres" Binding="{Binding Path=Genres}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Release" Binding="{Binding Release, StringFormat='dd.MM.yyyy'}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Rating" Binding="{Binding Rating, StringFormat=F1}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Staffeln" Binding="{Binding StaffelAnzahl, StringFormat=D}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Erstausstrahlung" Binding="{Binding FirstAirDate, StringFormat='dd.MM.yyyy'}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Letztausstrahlung" Binding="{Binding LastAirDate, StringFormat='dd.MM.yyyy'}" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </TabItem>
         </TabControl>
         <Grid Grid.ColumnSpan="4" Grid.Row="2" HorizontalAlignment="Stretch"
